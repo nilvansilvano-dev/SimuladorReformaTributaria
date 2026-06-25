@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: baruchgest-api
+    runtime: dotnet
+    rootDir: backend
+    buildCommand: dotnet publish Api.csproj -c Release -o ../publish
+    startCommand: cd ../publish && ./Api
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGIN
+        value: https://baruchgest.vercel.app
+      - key: DATA_DIR
+        value: /opt/render/project/data
+    disk:
+      name: baruchgest-data
+      mountPath: /opt/render/project/data
+      sizeGB: 1

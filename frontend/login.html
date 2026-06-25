@@ -237,8 +237,9 @@
 <p class="footer">Simulador de Impacto da Reforma Tributária IBS/CBS</p>
 
 <script src="theme.js"></script>
+<script src="config.js"></script>
 <script>
-  const API = 'http://localhost:5000';
+  const API = window.BARUCHGEST_API;
 
   // Redireciona se já logado
   if (localStorage.getItem('bg_token')) {

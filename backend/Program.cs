@@ -4,23 +4,34 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.WebHost.UseUrls("http://localhost:5000");
+
+// Porta: Render injeta PORT; fallback 5000 para desenvolvimento
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 
 builder.Services.ConfigureHttpJsonOptions(o => {
     o.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
     o.SerializerOptions.PropertyNameCaseInsensitive = true;
 });
 
-builder.Services.AddCors(c => c.AddDefaultPolicy(p =>
-    p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+// CORS: em produção aceita apenas a origem do frontend; em dev aceita tudo
+var corsOrigin = Environment.GetEnvironmentVariable("CORS_ORIGIN");
+builder.Services.AddCors(c => c.AddDefaultPolicy(p => {
+    if (string.IsNullOrEmpty(corsOrigin))
+        p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+    else
+        p.WithOrigins(corsOrigin.Split(',', StringSplitOptions.RemoveEmptyEntries))
+         .AllowAnyHeader().AllowAnyMethod();
+}));
 
 var app = builder.Build();
 app.UseCors();
 
-// ─── Config ──────────────────────────────────────────────────────────────────
-const string JwtSecret = "baruchgest-reforma-tributaria-jwt-secret-2024";
-const string DataDir   = "data";
-const string UsersFile = "data/usuarios.json";
+// ─── Config (lê variáveis de ambiente em produção) ───────────────────────────
+var JwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET")
+    ?? "baruchgest-reforma-tributaria-jwt-secret-dev-only";
+var DataDir   = Environment.GetEnvironmentVariable("DATA_DIR") ?? "data";
+var UsersFile = Path.Combine(DataDir, "usuarios.json");
 
 Directory.CreateDirectory(DataDir);
 

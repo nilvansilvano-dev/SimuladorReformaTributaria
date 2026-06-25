@@ -6,6 +6,13 @@
 # dotenv files
 .env
 
+# Dados de usuários (não subir para o repositório)
+backend/data/
+publish/
+
+# Artefatos de publicação do Render
+**/publish/
+
 # User-specific files
 *.rsuser
 *.suo

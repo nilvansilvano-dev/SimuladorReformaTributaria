@@ -302,8 +302,9 @@
 <div id="toast"></div>
 
 <script src="theme.js"></script>
+<script src="config.js"></script>
 <script>
-  const API = 'http://localhost:5000';
+  const API = window.BARUCHGEST_API;
 
   const token   = localStorage.getItem('bg_token');
   const isAdmin = localStorage.getItem('bg_isAdmin') === 'true';

@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "name": "baruchgest",
+  "buildCommand": null,
+  "outputDirectory": "frontend",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/$1" }
+  ]
+}

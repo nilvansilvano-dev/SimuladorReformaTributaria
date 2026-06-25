@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  const API   = 'http://localhost:5000';
+  const API   = window.BARUCHGEST_API || 'http://localhost:5000';
   const token = localStorage.getItem('bg_token');
   if (!token) return; // só mostra se estiver logado
 
