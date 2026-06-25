@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BaruchGest — Lei Complementar 214/2025</title>
+  <style>
+    :root {
+      --navy:    #0F172A;
+      --emerald: #10B981;
+      --dk:      #059669;
+      --white:   #FFFFFF;
+      --gray:    #f8fafc;
+      --border:  #e2e8f0;
+      --radius:  8px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--gray); color: #1e293b; }
+
+    /* ── Header ─────────────────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a3252 100%);
+      border-bottom: 2px solid var(--emerald);
+      padding: 0 24px;
+    }
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .brand-name { font-size: 1.3rem; font-weight: 800; color: var(--white); letter-spacing: -.5px; }
+    .brand-name em { color: var(--emerald); font-style: normal; }
+
+    .nav { display: flex; gap: 8px; align-items: center; }
+    .nav a {
+      color: rgba(255,255,255,.7);
+      text-decoration: none;
+      font-size: .82rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: var(--radius);
+      border: 1.5px solid rgba(255,255,255,.25);
+      transition: all .15s;
+    }
+    .nav a:hover { background: rgba(255,255,255,.1); color: var(--white); }
+
+    /* ── Hero da Lei ─────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #0f3460 100%);
+      color: var(--white);
+      padding: 40px 24px 36px;
+      text-align: center;
+      border-bottom: 3px solid var(--emerald);
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(16,185,129,.2);
+      border: 1px solid var(--emerald);
+      color: var(--emerald);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .hero h1 { font-size: 1.8rem; font-weight: 900; margin-bottom: 8px; }
+    .hero p  { font-size: .95rem; color: rgba(255,255,255,.65); max-width: 560px; margin: 0 auto; }
+
+    /* ── Layout principal ───────────────────────────────── */
+    main { max-width: 960px; margin: 0 auto; padding: 32px 24px 60px; }
+
+    /* ── Cards de seção ─────────────────────────────────── */
+    .section { background: var(--white); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 24px; overflow: hidden; }
+
+    .section-header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-header .icon { font-size: 1.2rem; }
+    .section-header h2 { font-size: 1rem; font-weight: 800; }
+    .section-header small { font-size: .75rem; color: rgba(255,255,255,.55); margin-left: auto; }
+
+    .section-body { padding: 20px 24px; }
+
+    /* ── Impostos grid ───────────────────────────────────── */
+    .imposto-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .imposto-card {
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+    .imposto-card .sigla { font-size: 1.5rem; font-weight: 900; color: var(--navy); }
+    .imposto-card .sigla.emerald { color: var(--emerald); }
+    .imposto-card .nome { font-size: .75rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: .05em; margin: 4px 0 8px; }
+    .imposto-card p { font-size: .82rem; color: #475569; line-height: 1.5; }
+
+    .seta { text-align: center; font-size: 1.8rem; color: var(--emerald); display: flex; align-items: center; justify-content: center; }
+
+    /* ── Tabela de substituição ──────────────────────────── */
+    .sub-table { width: 100%; border-collapse: collapse; }
+    .sub-table th { background: var(--navy); color: var(--white); padding: 10px 14px; font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; text-align: left; }
+    .sub-table td { padding: 11px 14px; font-size: .87rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .sub-table tr:last-child td { border-bottom: none; }
+    .sub-table tr:nth-child(even) td { background: #f8fafc; }
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: .73rem;
+      font-weight: 700;
+      margin: 2px 2px 2px 0;
+    }
+    .tag-red  { background: #fee2e2; color: #dc2626; }
+    .tag-green{ background: #d1fae5; color: #065f46; }
+    .tag-blue { background: #dbeafe; color: #1e40af; }
+
+    /* ── Cronograma ──────────────────────────────────────── */
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 6px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--emerald), rgba(16,185,129,.2));
+    }
+    .tl-item { position: relative; margin-bottom: 22px; }
+    .tl-item:last-child { margin-bottom: 0; }
+    .tl-dot {
+      position: absolute;
+      left: -25px;
+      top: 4px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--emerald);
+      border: 2px solid var(--white);
+      box-shadow: 0 0 0 2px var(--emerald);
+    }
+    .tl-dot.future { background: #cbd5e1; box-shadow: 0 0 0 2px #cbd5e1; }
+    .tl-year { font-size: .75rem; font-weight: 800; color: var(--emerald); text-transform: uppercase; letter-spacing: .08em; }
+    .tl-year.future { color: #94a3b8; }
+    .tl-title { font-size: .92rem; font-weight: 700; color: var(--navy); margin: 2px 0 4px; }
+    .tl-desc { font-size: .82rem; color: #64748b; line-height: 1.5; }
+
+    /* ── Split Payment ───────────────────────────────────── */
+    .split-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    .split-box {
+      background: var(--gray);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      text-align: center;
+      min-width: 130px;
+    }
+    .split-box .icon { font-size: 1.6rem; }
+    .split-box .label { font-size: .78rem; font-weight: 700; color: var(--navy); margin-top: 6px; }
+    .split-box .sub   { font-size: .7rem; color: #64748b; }
+    .split-arrow { font-size: 1.5rem; color: var(--emerald); padding: 0 8px; }
+
+    .split-result {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .split-dest {
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+    .split-dest.empresa  { background: #dbeafe; border: 1.5px solid #93c5fd; }
+    .split-dest.governo  { background: #d1fae5; border: 1.5px solid #6ee7b7; }
+    .split-dest .pct     { font-size: 1.6rem; font-weight: 900; }
+    .split-dest.empresa .pct  { color: #1e40af; }
+    .split-dest.governo .pct  { color: #065f46; }
+    .split-dest .who { font-size: .78rem; font-weight: 700; color: #475569; margin-top: 4px; }
+
+    /* ── Isenções ────────────────────────────────────────── */
+    .isencao-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
+    .isencao-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: .83rem;
+      font-weight: 600;
+      color: #065f46;
+    }
+
+    /* ── Alerta reforma ──────────────────────────────────── */
+    .alert {
+      background: #fffbeb;
+      border: 1.5px solid #fcd34d;
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: .85rem;
+      color: #78350f;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .alert strong { color: #92400e; }
+
+    /* ── Dark mode ───────────────────────────────────────── */
+    [data-theme="dark"] body         { background: #0f172a; color: #e2e8f0; }
+    [data-theme="dark"] main         { background: #0f172a; }
+
+    [data-theme="dark"] .section     { background: #1e293b; border-color: #334155; }
+    [data-theme="dark"] .section-body { color: #cbd5e1; }
+    [data-theme="dark"] .section-header { background: #0f172a; border-color: #334155; }
+    [data-theme="dark"] .section-header h2 { color: #f1f5f9; }
+
+    /* Cards CBS / IBS / IS */
+    [data-theme="dark"] .imposto-card            { background: #0f172a; border-color: #334155; }
+    [data-theme="dark"] .imposto-card .sigla      { color: #f1f5f9; }
+    [data-theme="dark"] .imposto-card .sigla.emerald { color: #10B981; }
+    [data-theme="dark"] .imposto-card .nome       { color: #94a3b8; }
+    [data-theme="dark"] .imposto-card p           { color: #94a3b8; }
+    [data-theme="dark"] .seta                     { color: #10B981; }
+
+    /* Tabela substituição */
+    [data-theme="dark"] table        { border-color: #334155; }
+    [data-theme="dark"] th           { background: #0f172a; color: #94a3b8; border-color: #334155; }
+    [data-theme="dark"] td           { border-color: #334155; color: #cbd5e1; }
+    [data-theme="dark"] tr:hover td  { background: #334155; }
+    [data-theme="dark"] .sub-table tr:nth-child(even) td { background: #0f172a; }
+    [data-theme="dark"] .tag-red     { background: #450a0a; color: #fca5a5; }
+    [data-theme="dark"] .tag-green   { background: #022c22; color: #6ee7b7; }
+    [data-theme="dark"] .tag-blue    { background: #0c1a40; color: #93c5fd; }
+
+    /* Cronograma */
+    [data-theme="dark"] .tl-dot      { border-color: #1e293b; }
+    [data-theme="dark"] .tl-title    { color: #f1f5f9; }
+    [data-theme="dark"] .tl-desc     { color: #94a3b8; }
+
+    /* Split payment */
+    [data-theme="dark"] .split-box   { background: #0f172a; border-color: #334155; }
+    [data-theme="dark"] .split-box .label { color: #e2e8f0; }
+    [data-theme="dark"] .split-box .sub   { color: #64748b; }
+    [data-theme="dark"] .split-dest.empresa { background: #0c1a40; border-color: #3b82f6; }
+    [data-theme="dark"] .split-dest.empresa .pct { color: #93c5fd; }
+    [data-theme="dark"] .split-dest.empresa .who  { color: #94a3b8; }
+    [data-theme="dark"] .split-dest.governo { background: #022c22; border-color: #10B981; }
+    [data-theme="dark"] .split-dest.governo .pct  { color: #6ee7b7; }
+    [data-theme="dark"] .split-dest.governo .who  { color: #94a3b8; }
+
+    /* Isenções */
+    [data-theme="dark"] .isencao-item { background: #022c22; border-color: #065f46; color: #6ee7b7; }
+
+    /* Alerta */
+    [data-theme="dark"] .alert { background: #1c0f00; border-color: #92400e; color: #fcd34d; }
+    [data-theme="dark"] .alert strong { color: #fbbf24; }
+
+    [data-theme="dark"] .timeline-item { background: #1e293b; border-color: #334155; }
+    [data-theme="dark"] .timeline-ano { color: #10B981; }
+    [data-theme="dark"] .timeline-desc { color: #94a3b8; }
+    [data-theme="dark"] .flow-box    { background: #1e293b; border-color: #334155; color: #e2e8f0; }
+
+    /* ── Princípios ─────────────────────────────────────────── */
+    .principio-card { border-left: 3px solid var(--emerald); padding: 12px 16px; }
+    .principio-card .titulo { font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+    .principio-card .desc   { font-size: .83rem; color: #64748b; line-height: 1.5; }
+    [data-theme="dark"] .principio-card .titulo { color: #f1f5f9; }
+    [data-theme="dark"] .principio-card .desc   { color: #94a3b8; }
+
+    /* ── Cards do Split Payment ──────────────────────────────── */
+    .benefit-card { border-radius: 8px; padding: 14px; }
+    .benefit-card .titulo  { font-weight: 800; margin-bottom: 4px; }
+    .benefit-card .desc    { font-size: .82rem; }
+    .benefit-card.verde    { background: #f0fdf4; border: 1px solid #bbf7d0; }
+    .benefit-card.verde .titulo { color: #065f46; }
+    .benefit-card.verde .desc   { color: #047857; }
+    .benefit-card.vermelho { background: #fff1f2; border: 1px solid #fecdd3; }
+    .benefit-card.vermelho .titulo { color: #be123c; }
+    .benefit-card.vermelho .desc   { color: #be123c; }
+    [data-theme="dark"] .benefit-card.verde    { background: #022c22; border-color: #065f46; }
+    [data-theme="dark"] .benefit-card.verde .titulo { color: #6ee7b7; }
+    [data-theme="dark"] .benefit-card.verde .desc   { color: #34d399; }
+    [data-theme="dark"] .benefit-card.vermelho { background: #2d0a0a; border-color: #7f1d1d; }
+    [data-theme="dark"] .benefit-card.vermelho .titulo { color: #fca5a5; }
+    [data-theme="dark"] .benefit-card.vermelho .desc   { color: #f87171; }
+
+    /* ── Split box amarelo (banco) ───────────────────────────── */
+    .split-box-banco { background: #fffbeb; border-color: #fcd34d !important; }
+    [data-theme="dark"] .split-box-banco { background: #1c1000; border-color: #92400e !important; }
+    [data-theme="dark"] .split-box-banco .label { color: #fcd34d; }
+    [data-theme="dark"] .split-box-banco .sub   { color: #a16207; }
+
+    /* ── Texto Completo da Lei ───────────────────────────────── */
+    .lei-desc { font-size: .9rem; color: #475569; margin-bottom: 20px; line-height: 1.6; }
+    [data-theme="dark"] .lei-desc { color: #94a3b8; }
+    .btn-lei {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #0F172A; color: white;
+      padding: 14px 28px; border-radius: 8px;
+      text-decoration: none; font-weight: 700; font-size: .95rem; transition: background .15s;
+    }
+    .btn-lei:hover { background: #1e293b; }
+    [data-theme="dark"] .btn-lei       { background: var(--emerald); color: #0f172a; }
+    [data-theme="dark"] .btn-lei:hover { background: #059669; }
+
+    /* ── Grids das seções ───────────────────────────────────────── */
+    .benefit-grid   { margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .principios-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+
+    /* ── Scroll na tabela de substituição ───────────────────────── */
+    .sub-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .sub-table-scroll .sub-table { min-width: 480px; }
+
+    /* ── Responsivo — Tablet (≤ 768px) ──────────────────────────── */
+    @media (max-width: 768px) {
+      main { padding: 20px 16px 48px; }
+      .hero { padding: 28px 16px 24px; }
+      .hero h1 { font-size: 1.5rem; }
+      .section-body { padding: 16px 18px; }
+      .split-flow { gap: 0; }
+    }
+
+    /* ── Responsivo — Mobile (≤ 600px) ──────────────────────────── */
+    @media (max-width: 600px) {
+      /* Header */
+      .header-inner { padding: 0 14px; }
+      .brand-name   { font-size: 1.1rem; }
+      .nav a        { padding: 5px 9px; font-size: .75rem; }
+      #theme-toggle { padding: 5px 9px !important; font-size: .78rem !important; }
+
+      /* Hero */
+      .hero h1 { font-size: 1.2rem; }
+      .hero p  { font-size: .85rem; }
+
+      /* Cards de impostos em coluna */
+      .imposto-grid { grid-template-columns: 1fr; }
+      .seta { display: none; }
+
+      /* Split payment */
+      .split-result { grid-template-columns: 1fr; }
+      .split-flow   { flex-direction: column; align-items: stretch; }
+      .split-arrow  { transform: rotate(90deg); text-align: center; }
+      .split-box, .split-box-banco { min-width: unset; }
+
+      /* Grid dos benefícios e princípios em coluna */
+      .benefit-grid, .principios-grid { grid-template-columns: 1fr; }
+
+      /* Isenções */
+      .isencao-grid { grid-template-columns: 1fr 1fr; }
+
+      /* Tabela sub */
+      .sub-table th, .sub-table td { padding: 8px 10px; font-size: .82rem; }
+
+      /* Cronograma */
+      .timeline { padding-left: 20px; }
+      .tl-title { font-size: .85rem; }
+      .tl-desc  { font-size: .78rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <span class="brand-name">Baruch<em>Gest</em></span>
+    <nav class="nav">
+      <a href="index.html">Simulador</a>
+      <a href="admin.html" id="link-admin" style="display:none">Admin</a>
+      <button id="theme-toggle" onclick="toggleTheme()" title="Alternar tema" style="background:none;border:1.5px solid rgba(255,255,255,.3);border-radius:8px;color:rgba(255,255,255,.8);padding:6px 12px;cursor:pointer;font-size:.85rem;transition:background .15s">🌙</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ── Hero ─────────────────────────────────────────────────── -->
+<div class="hero">
+  <div class="hero-badge">Reforma Tributária</div>
+  <h1>Lei Complementar n.º 214/2025</h1>
+  <p>Institui o IBS, a CBS e o Imposto Seletivo. Publicada em 16 de janeiro de 2025 no Diário Oficial da União.</p>
+</div>
+
+<main>
+
+  <div class="alert">
+    ⚠️ <strong>Atenção:</strong> Esta página resume os pontos principais da LC 214/2025 para fins informativos e de planejamento. Para decisões jurídicas ou fiscais, consulte sempre o texto integral da lei e um especialista tributário.
+  </div>
+
+  <!-- ── O que a lei faz ──────────────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="icon">📋</span>
+      <h2>O que a Lei cria</h2>
+      <small>3 novos tributos</small>
+    </div>
+    <div class="section-body">
+      <div class="imposto-grid">
+        <div class="imposto-card">
+          <div class="sigla emerald">CBS</div>
+          <div class="nome">Federal</div>
+          <p>Contribuição sobre Bens e Serviços. Substitui PIS e COFINS. Administrada pela Receita Federal.</p>
+        </div>
+        <div class="seta">→</div>
+        <div class="imposto-card">
+          <div class="sigla emerald">IBS</div>
+          <div class="nome">Estados e Municípios</div>
+          <p>Imposto sobre Bens e Serviços. Substitui ICMS e ISS. Gerido pelo Comitê Gestor do IBS.</p>
+        </div>
+        <div class="seta">+</div>
+        <div class="imposto-card">
+          <div class="sigla">IS</div>
+          <div class="nome">Imposto Seletivo</div>
+          <p>"Sin tax" federal sobre produtos prejudiciais à saúde ou ao meio ambiente: cigarros, bebidas alcoólicas, veículos poluentes, apostas.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Tabela de substituição ──────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="icon">🔄</span>
+      <h2>Impostos que saem × que entram</h2>
+    </div>
+    <div class="section-body">
+      <div class="sub-table-scroll">
+      <table class="sub-table">
+        <thead>
+          <tr><th>Tributo atual</th><th>Âmbito</th><th>Substituído por</th><th>Extinção</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tag tag-red">PIS</span></td>
+            <td>Federal</td>
+            <td><span class="tag tag-green">CBS</span></td>
+            <td>2027–2033 (gradual)</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-red">COFINS</span></td>
+            <td>Federal</td>
+            <td><span class="tag tag-green">CBS</span></td>
+            <td>2027–2033 (gradual)</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-red">IPI</span></td>
+            <td>Federal</td>
+            <td><span class="tag tag-green">IS</span> (parcial)</td>
+            <td>2027–2033</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-red">ICMS</span></td>
+            <td>Estadual</td>
+            <td><span class="tag tag-green">IBS</span></td>
+            <td>2029–2033 (gradual)</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-red">ISS</span></td>
+            <td>Municipal</td>
+            <td><span class="tag tag-green">IBS</span></td>
+            <td>2029–2033 (gradual)</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Split Payment ───────────────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="icon">⚡</span>
+      <h2>Split Payment — Como funciona</h2>
+      <small>Art. 25 da LC 214/2025</small>
+    </div>
+    <div class="section-body">
+      <p style="font-size:.88rem;color:#475569;margin-bottom:16px;line-height:1.6">
+        O <strong>split payment</strong> é o mecanismo central de arrecadação do IBS/CBS. No momento do pagamento, o sistema financeiro <strong>divide automaticamente</strong> o valor: a parte do imposto vai direto para o Fisco, sem passar pela conta do vendedor.
+      </p>
+
+      <div class="split-flow">
+        <div class="split-box">
+          <div class="icon">🛒</div>
+          <div class="label">Comprador</div>
+          <div class="sub">paga R$ 1.280</div>
+        </div>
+        <div class="split-arrow">→</div>
+        <div class="split-box split-box-banco">
+          <div class="icon">🏦</div>
+          <div class="label">Sistema Financeiro</div>
+          <div class="sub">divide automaticamente</div>
+        </div>
+        <div class="split-arrow">→</div>
+        <div class="split-result">
+          <div class="split-dest empresa">
+            <div class="pct">R$ 1.000</div>
+            <div class="who">➡ Conta da Empresa</div>
+          </div>
+          <div class="split-dest governo">
+            <div class="pct">R$ 280</div>
+            <div class="who">➡ Fisco (IBS/CBS)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="benefit-grid">
+        <div class="benefit-card verde">
+          <div class="titulo">✓ Elimina sonegação</div>
+          <div class="desc">O imposto nunca fica na mão do vendedor</div>
+        </div>
+        <div class="benefit-card verde">
+          <div class="titulo">✓ Arrecadação imediata</div>
+          <div class="desc">Governo recebe no ato da venda</div>
+        </div>
+        <div class="benefit-card verde">
+          <div class="titulo">✓ Devolução automática</div>
+          <div class="desc">Créditos restituídos em até 60 dias</div>
+        </div>
+        <div class="benefit-card vermelho">
+          <div class="titulo">⚠ Impacto no caixa</div>
+          <div class="desc">Empresa não usa mais o imposto como capital de giro</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Cronograma de transição ─────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="icon">📅</span>
+      <h2>Cronograma de Transição</h2>
+      <small>2026 – 2033</small>
+    </div>
+    <div class="section-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2026</div>
+          <div class="tl-title">Início do período de testes</div>
+          <div class="tl-desc">CBS a 0,9% e IBS a 0,1% — alíquotas simbólicas para testes do sistema. Empresas já podem apurar créditos.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2027</div>
+          <div class="tl-title">CBS começa a substituir PIS/COFINS</div>
+          <div class="tl-desc">PIS e COFINS são extintos. CBS entra em vigor com alíquota plena. IPI reduzido exceto para ZFM.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot future"></div>
+          <div class="tl-year future">2029 – 2032</div>
+          <div class="tl-title">Redução gradual de ICMS e ISS</div>
+          <div class="tl-desc">ICMS e ISS reduzidos em 10% ao ano, com aumento proporcional do IBS para manter carga neutra.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot future"></div>
+          <div class="tl-year future">2033</div>
+          <div class="tl-title">Implementação completa</div>
+          <div class="tl-desc">ICMS e ISS extintos completamente. IBS e CBS em plena vigência. Reforma tributária 100% concluída.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Isenções e benefícios ───────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="icon">🛡️</span>
+      <h2>Isenções e Reduções Previstas</h2>
+    </div>
+    <div class="section-body">
+      <p style="font-size:.85rem;color:#64748b;margin-bottom:16px">Setores com alíquota zero ou reduzida de IBS/CBS:</p>
+      <div class="isencao-grid">
+        <div class="isencao-item">🥩 Cesta Básica Nacional</div>
+        <div class="isencao-item">💊 Medicamentos</div>
+        <div class="isencao-item">🏥 Saúde</div>
+        <div class="isencao-item">📚 Educação</div>
+        <div class="isencao-item">🚌 Transporte público</div>
+        <div class="isencao-item">🌱 Produtos agropecuários</div>
+        <div class="isencao-item">♿ Acessibilidade</div>
+        <div class="isencao-item">🏠 Aluguel residencial</div>
+        <div class="isencao-item">🔒 Segurança pública</div>
+        <div class="isencao-item">🇧🇷 Simples Nacional</div>
+      </div>
+      <p style="font-size:.8rem;color:#94a3b8;margin-top:14px">* Simples Nacional terá regime próprio de transição com opção de crédito IBS/CBS.</p>
+    </div>
+  </div>
+
+  <!-- ── Princípios do novo sistema ─────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="icon">⚖️</span>
+      <h2>Princípios do Novo Sistema</h2>
+    </div>
+    <div class="section-body">
+      <div class="principios-grid">
+        <div class="principio-card">
+          <div class="titulo">Não Cumulatividade Plena</div>
+          <div class="desc">Crédito em todas as etapas da cadeia produtiva. O imposto incide só sobre o valor agregado, eliminando a cascata.</div>
+        </div>
+        <div class="principio-card">
+          <div class="titulo">Princípio do Destino</div>
+          <div class="desc">O imposto é arrecadado no estado/município onde o consumidor está, não onde a empresa é sediada. Beneficia regiões consumidoras.</div>
+        </div>
+        <div class="principio-card">
+          <div class="titulo">Alíquota Uniforme</div>
+          <div class="desc">Uma única alíquota-padrão para todos os bens e serviços (estimada em 28%). Fim das diferenciações que geravam litígios.</div>
+        </div>
+        <div class="principio-card">
+          <div class="titulo">Transparência</div>
+          <div class="desc">O imposto deve aparecer explicitamente no preço cobrado ao consumidor — destaque obrigatório na nota fiscal.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Leia o texto completo ──────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="icon">📄</span>
+      <h2>Texto Completo da Lei</h2>
+    </div>
+    <div class="section-body" style="text-align:center;padding:28px 24px">
+      <p class="lei-desc">
+        Acesse o texto integral da <strong>Lei Complementar n.º 214/2025</strong> publicado
+        no Diário Oficial da União pelo portal do Governo Federal.
+      </p>
+      <a href="https://www.in.gov.br/en/web/dou/-/lei-complementar-n-214-de-16-de-janeiro-de-2025-607430757"
+         target="_blank" rel="noopener" class="btn-lei">
+        📄 Ler Lei Complementar 214/2025 — DOU
+      </a>
+      <p style="font-size:.75rem;color:#94a3b8;margin-top:14px">
+        Abre no portal oficial do Diário Oficial da União (in.gov.br)
+      </p>
+    </div>
+  </div>
+
+  <!-- ── Fonte ───────────────────────────────────────────── -->
+  <div style="text-align:center;font-size:.78rem;color:#94a3b8;margin-top:8px">
+    Fonte: Lei Complementar n.º 214, de 16 de janeiro de 2025 — Diário Oficial da União &nbsp;·&nbsp;
+    Emenda Constitucional n.º 132/2023
+  </div>
+
+</main>
+
+<footer style="background:var(--navy);color:rgba(255,255,255,.5);text-align:center;padding:20px;font-size:.8rem;margin-top:0">
+  <strong style="color:var(--white)">Baruch<span style="color:var(--emerald)">Gest</span></strong>
+  &nbsp;·&nbsp; Simulador de Impacto da Reforma Tributária IBS/CBS
+</footer>
+
+<script src="theme.js"></script>
+<script src="config.js"></script>
+<script src="chat.js"></script>
+<script>
+  // Verificar se está logado
+  if (!localStorage.getItem('bg_token')) {
+    window.location.href = 'login.html';
+  }
+  // Mostrar link admin se for admin
+  if (localStorage.getItem('bg_isAdmin') === 'true') {
+    document.getElementById('link-admin').style.display = 'inline-block';
+  }
+</script>
+</body>
+</html>

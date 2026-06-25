@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BaruchGest — Simulador Reforma Tributária IBS/CBS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-text">
+        <span class="brand-name">Baruch<span class="green">Gest</span></span>
+        <span class="brand-sub">Transformando controle em crescimento.</span>
+      </div>
+    </div>
+    <div class="header-title">
+      <h1>Simulador de Impacto da Reforma Tributária</h1>
+      <p>IBS / CBS &nbsp;·&nbsp; Análise comparativa por regime fiscal</p>
+    </div>
+    <div class="header-actions">
+      <span id="header-user-name" class="header-username"></span>
+      <a href="lei214.html" class="header-btn">Lei 214</a>
+      <a href="admin.html" id="header-admin-link" class="header-btn" hidden>Admin</a>
+      <button id="theme-toggle" class="header-btn" onclick="toggleTheme()" title="Alternar tema">🌙</button>
+      <button class="header-btn header-btn-sair" onclick="sair()">Sair</button>
+    </div>
+  </div>
+</header>
+
+<!-- ── CABEÇALHO EXCLUSIVO PARA IMPRESSÃO/PDF ─────────────── -->
+<div id="print-header" class="print-only">
+  <div class="ph-top">
+    <div class="ph-brand">
+      <span class="ph-brand-name">Baruch<em>Gest</em></span>
+      <span class="ph-brand-sub">Transformando controle em crescimento.</span>
+    </div>
+    <div class="ph-title-block">
+      <div class="ph-title">Simulador de Impacto da Reforma Tributária IBS/CBS</div>
+      <div class="ph-meta">
+        <span id="ph-empresa"></span>
+        <span id="ph-fat"></span>
+        <span id="ph-data"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+  <form id="form" novalidate>
+
+    <!-- ── DADOS DA EMPRESA ─────────────────────────────────── -->
+    <details open>
+      <summary>
+        <span class="sec-tag emp">EMP</span> Dados da Empresa
+      </summary>
+      <div class="fields">
+        <div class="field-row">
+          <div class="field wide">
+            <label for="nome-empresa">Nome da Empresa <small>(opcional)</small></label>
+            <input type="text" id="nome-empresa" placeholder="Ex: Empresa ABC Ltda" maxlength="120">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="fat-produto">Faturamento Produtos (R$)</label>
+            <input type="number" id="fat-produto" value="0" min="0" step="100">
+          </div>
+          <div class="field">
+            <label for="fat-servico">Faturamento Serviços (R$)</label>
+            <input type="number" id="fat-servico" value="50000" min="0" step="100">
+          </div>
+          <div class="field field-total">
+            <label>Faturamento Total</label>
+            <div id="fat-total-display" class="display-value">R$ 50.000,00</div>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="pct-cmv">% CMV — Custo Mercadorias</label>
+            <div class="input-pct">
+              <input type="number" id="pct-cmv" value="10" min="0" max="100" step="0.5">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="pct-csv">% CSV — Custo do Serviço</label>
+            <div class="input-pct">
+              <input type="number" id="pct-csv" value="70" min="0" max="100" step="0.5">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="pct-despesas">% Despesas Operacionais</label>
+            <div class="input-pct">
+              <input type="number" id="pct-despesas" value="5" min="0" max="100" step="0.5">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="pct-dir-credito">% Desp/Serv c/ direito a crédito IBS/CBS <small>(excl. folha)</small></label>
+            <div class="input-pct">
+              <input type="number" id="pct-dir-credito" value="70" min="0" max="100" step="1">
+              <span>%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- ── PARÂMETROS DA REFORMA ────────────────────────────── -->
+    <details open>
+      <summary>
+        <span class="sec-tag ref">REF</span> Parâmetros da Reforma
+      </summary>
+      <div class="fields">
+        <div class="field-row">
+          <div class="field">
+            <label for="aliq-ibs-cbs">Alíquota IBS/CBS</label>
+            <div class="input-pct">
+              <input type="number" id="aliq-ibs-cbs" value="28" step="0.01">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="aliq-extintos-serv-desp">% Extintos em Desp/Serv <small>(ISS+PIS+COFINS)</small></label>
+            <div class="input-pct">
+              <input type="number" id="aliq-extintos-serv-desp" value="20.65" step="0.01">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="aliq-extitos-cmv">% Extintos em CMV Produtos <small>(ICMS+IPI+PIS+COFINS)</small></label>
+            <div class="input-pct">
+              <input type="number" id="aliq-extitos-cmv" value="24.15" step="0.01">
+              <span>%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- ── LUCRO REAL ────────────────────────────────────────── -->
+    <details open>
+      <summary><span class="sec-tag lr">LR</span> Lucro Real</summary>
+      <div class="fields">
+        <div class="field-row">
+          <div class="field">
+            <label for="lr-aliq-extintos-receita">% Extintos na Receita <small>(ICMS+ISS+PIS+COFINS+IPI)</small></label>
+            <div class="input-pct">
+              <input type="number" id="lr-aliq-extintos-receita" value="6.78" step="0.01">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="lr-aliq-irpj-csll">% IRPJ + CSLL sobre o Lucro</label>
+            <div class="input-pct">
+              <input type="number" id="lr-aliq-irpj-csll" value="24" step="0.01">
+              <span>%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- ── LUCRO PRESUMIDO ───────────────────────────────────── -->
+    <details>
+      <summary><span class="sec-tag lp">LP</span> Lucro Presumido</summary>
+      <div class="fields">
+        <div class="field-row">
+          <div class="field">
+            <label for="lp-aliq-extintos-receita">% Extintos na Receita</label>
+            <div class="input-pct">
+              <input type="number" id="lp-aliq-extintos-receita" value="6.56" step="0.01">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="lp-pct-presuncao-prod">% Presunção — Produtos</label>
+            <div class="input-pct">
+              <input type="number" id="lp-pct-presuncao-prod" value="8" step="0.5">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="lp-pct-presuncao-serv">% Presunção — Serviços</label>
+            <div class="input-pct">
+              <input type="number" id="lp-pct-presuncao-serv" value="32" step="0.5">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="lp-aliq-irpj">Alíquota IRPJ</label>
+            <div class="input-pct">
+              <input type="number" id="lp-aliq-irpj" value="15" step="0.5">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="lp-aliq-csll">Alíquota CSLL</label>
+            <div class="input-pct">
+              <input type="number" id="lp-aliq-csll" value="9" step="0.5">
+              <span>%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- ── SIMPLES COM CRÉDITO ───────────────────────────────── -->
+    <details>
+      <summary><span class="sec-tag snc">SNC</span> Simples Nacional — COM crédito IBS/CBS</summary>
+      <div class="fields">
+        <div class="field-row">
+          <div class="field">
+            <label for="sn-aliq-extintos-receita">% ISS+PIS+COFINS no DAS <small>(extintos)</small></label>
+            <div class="input-pct">
+              <input type="number" id="sn-aliq-extintos-receita" value="6.89" step="0.001">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="sn-aliq-irpj-das">% IRPJ no DAS</label>
+            <div class="input-pct">
+              <input type="number" id="sn-aliq-irpj-das" value="0.56" step="0.001">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="sn-aliq-csll-das">% CSLL no DAS</label>
+            <div class="input-pct">
+              <input type="number" id="sn-aliq-csll-das" value="0.49" step="0.001">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="sn-aliq-cpp-das">% CPP-INSS no DAS</label>
+            <div class="input-pct">
+              <input type="number" id="sn-aliq-cpp-das" value="6.08" step="0.001">
+              <span>%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- ── SIMPLES SEM CRÉDITO ───────────────────────────────── -->
+    <details>
+      <summary><span class="sec-tag sns">SNS</span> Simples Nacional — SEM crédito IBS/CBS</summary>
+      <div class="fields">
+        <div class="field-row">
+          <div class="field">
+            <label for="sns-aliq-extintos-receita">% ISS+PIS+COFINS no DAS <small>(antes da reforma)</small></label>
+            <div class="input-pct">
+              <input type="number" id="sns-aliq-extintos-receita" value="6.888" step="0.001">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="sns-aliq-ibs-cbs-das">% IBS/CBS no DAS <small>(tabela nova)</small></label>
+            <div class="input-pct">
+              <input type="number" id="sns-aliq-ibs-cbs-das" value="6.5437" step="0.0001">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="sns-aliq-ibs-cbs-compras">% IBS/CBS nas compras <small>(sem crédito)</small></label>
+            <div class="input-pct">
+              <input type="number" id="sns-aliq-ibs-cbs-compras" value="26.5" step="0.01">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="sns-aliq-irpj-das">% IRPJ no DAS</label>
+            <div class="input-pct">
+              <input type="number" id="sns-aliq-irpj-das" value="0.561" step="0.001">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="sns-aliq-csll-das">% CSLL no DAS</label>
+            <div class="input-pct">
+              <input type="number" id="sns-aliq-csll-das" value="0.491" step="0.001">
+              <span>%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <div class="btn-row">
+      <button type="submit" class="btn-calcular">Calcular Impacto da Reforma</button>
+    </div>
+  </form>
+
+  <!-- ── RESULTADOS ──────────────────────────────────────────── -->
+  <section id="results" hidden>
+
+    <div class="results-head">
+      <div>
+        <h2 class="results-title">Resultados</h2>
+        <p id="empresa-nome-display" class="empresa-nome"></p>
+      </div>
+      <button id="btn-pdf" class="btn-pdf">Exportar PDF</button>
+    </div>
+
+    <!-- Tabs DRE -->
+    <div class="dre-section">
+      <div class="tabs" id="tabs"></div>
+      <div id="dre-container"></div>
+    </div>
+
+    <!-- Comparativo -->
+    <div class="comparativo-section">
+      <h3>Comparativo — Lucro Líquido por Regime</h3>
+      <div id="comparativo"></div>
+      <p class="obs">
+        &#x26A0;&#xFE0F; Adicional IRPJ (10% sobre presunção &gt; R$ 240 mil/ano) não calculado.<br>
+        &#x26A0;&#xFE0F; Nos regimes com crédito, IBS/CBS não compõe a DRE (débito/crédito separado).
+      </p>
+    </div>
+
+  </section>
+</main>
+
+<footer>
+  <p><strong>Baruch<span style="color:#10B981">Gest</span></strong> &nbsp;·&nbsp; Simulador de Impacto da Reforma Tributária IBS/CBS</p>
+</footer>
+
+<script src="theme.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+<script src="chat.js"></script>
+</body>
+</html>

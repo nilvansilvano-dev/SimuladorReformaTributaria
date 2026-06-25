@@ -25,6 +25,8 @@ builder.Services.AddCors(c => c.AddDefaultPolicy(p => {
 }));
 
 var app = builder.Build();
+app.UseDefaultFiles();
+app.UseStaticFiles();
 app.UseCors();
 
 // ─── Config (lê variáveis de ambiente em produção) ───────────────────────────

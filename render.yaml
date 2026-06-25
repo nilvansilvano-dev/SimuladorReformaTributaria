@@ -6,8 +6,6 @@ services:
     envVars:
       - key: JWT_SECRET
         generateValue: true
-      - key: CORS_ORIGIN
-        value: https://baruchgest.vercel.app
       - key: DATA_DIR
         value: /opt/render/project/data
     disk:

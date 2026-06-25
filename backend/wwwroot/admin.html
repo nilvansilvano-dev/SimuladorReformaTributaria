@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BaruchGest — Admin</title>
+  <style>
+    :root {
+      --navy:    #0F172A;
+      --emerald: #10B981;
+      --dk:      #059669;
+      --white:   #FFFFFF;
+      --gray:    #f8fafc;
+      --border:  #e2e8f0;
+      --radius:  8px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--gray); color: #1e293b; }
+
+    /* ── Header ──────────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a3252 100%);
+      border-bottom: 2px solid var(--emerald);
+      padding: 0 24px;
+    }
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .brand-name { font-size: 1.35rem; font-weight: 800; color: var(--white); }
+    .brand-name em { color: var(--emerald); font-style: normal; }
+
+    .header-nav { display: flex; gap: 12px; align-items: center; }
+    .nav-link {
+      color: rgba(255,255,255,.7);
+      text-decoration: none;
+      font-size: .85rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: var(--radius);
+      transition: background .15s;
+    }
+    .nav-link:hover { background: rgba(255,255,255,.1); color: var(--white); }
+
+    #btn-sair {
+      background: none;
+      border: 1.5px solid rgba(255,255,255,.35);
+      color: rgba(255,255,255,.8);
+      padding: 6px 14px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: .85rem;
+      font-weight: 600;
+      transition: all .15s;
+    }
+    #btn-sair:hover { background: rgba(255,255,255,.1); color: var(--white); }
+
+    /* ── Main ────────────────────────────────────── */
+    main { max-width: 900px; margin: 32px auto; padding: 0 24px; }
+
+    .page-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+
+    /* ── Tabela ──────────────────────────────────── */
+    .card {
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      background: var(--navy);
+      color: var(--white);
+      padding: 12px 16px;
+      text-align: left;
+      font-size: .8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    td {
+      padding: 12px 16px;
+      font-size: .88rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f8fafc; }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: .75rem;
+      font-weight: 700;
+    }
+    .badge-ativo    { background: #d1fae5; color: #065f46; }
+    .badge-inativo  { background: #fee2e2; color: #991b1b; }
+    .badge-admin    { background: #dbeafe; color: #1e40af; }
+
+    .btn-acao {
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: .8rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      transition: all .15s;
+      margin-right: 6px;
+    }
+    .btn-ativar   { background: #d1fae5; color: #065f46; border-color: #6ee7b7; }
+    .btn-ativar:hover { background: #10B981; color: white; }
+    .btn-bloquear { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
+    .btn-bloquear:hover { background: #dc2626; color: white; }
+    .btn-excluir  { background: #f1f5f9; color: #64748b; border-color: #cbd5e1; }
+    .btn-excluir:hover { background: #ef4444; color: white; border-color: #ef4444; }
+
+    .empty { text-align: center; padding: 40px; color: #94a3b8; }
+
+    /* ── Minha Conta ─────────────────────────────── */
+    .conta-card {
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-top: 28px;
+      overflow: hidden;
+    }
+    .conta-header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 14px 20px;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+    .conta-body { padding: 24px; }
+    .conta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    /* ── Scroll na tabela de usuários ───────────────────────── */
+    .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .table-scroll table { min-width: 620px; }
+
+    /* ── Tablet (≤ 768px) ────────────────────────────────────── */
+    @media (max-width: 768px) {
+      main { padding: 20px 16px; }
+      th, td { padding: 10px 12px; font-size: .84rem; }
+    }
+
+    /* ── Mobile (≤ 600px) ───────────────────────────────────── */
+    @media (max-width: 600px) {
+      /* Header: oculta rótulo admin, compacta botões */
+      .header-inner { padding: 0 16px; }
+      .brand-name   { font-size: 1.1rem; }
+      .header-nav   { gap: 6px; }
+      .nav-link     { padding: 5px 9px; font-size: .78rem; }
+      #btn-sair     { padding: 5px 10px; font-size: .78rem; }
+      #theme-toggle { padding: 5px 9px !important; font-size: .78rem !important; }
+
+      /* Formulário da conta em coluna */
+      .conta-grid { grid-template-columns: 1fr; }
+
+      /* Tipografia */
+      .page-title { font-size: 1.15rem; }
+      th { font-size: .75rem; }
+      td { font-size: .82rem; }
+      .btn-acao { padding: 4px 9px; font-size: .75rem; }
+    }
+    .conta-field label {
+      display: block; font-size: .82rem; font-weight: 600;
+      color: #475569; margin-bottom: 5px;
+    }
+    .conta-field input {
+      width: 100%; padding: 9px 12px;
+      border: 1.5px solid var(--border); border-radius: var(--radius);
+      font-size: .9rem; color: var(--navy);
+    }
+    .conta-field input:focus { outline: none; border-color: var(--emerald); }
+    .btn-salvar {
+      margin-top: 18px;
+      padding: 10px 24px;
+      background: var(--navy); color: white;
+      border: none; border-radius: var(--radius);
+      font-weight: 700; font-size: .9rem;
+      cursor: pointer; transition: background .15s;
+    }
+    .btn-salvar:hover { background: #1e293b; }
+    .btn-salvar:disabled { opacity: .6; cursor: not-allowed; }
+    #msg-conta {
+      margin-top: 12px; padding: 10px 14px;
+      border-radius: var(--radius); font-size: .85rem; font-weight: 600; display: none;
+    }
+    #msg-conta.ok   { background: #d1fae5; color: #065f46; display: block; }
+    #msg-conta.erro { background: #fee2e2; color: #dc2626; display: block; }
+
+    /* ── Toast ───────────────────────────────────── */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 12px 20px;
+      border-radius: var(--radius);
+      font-weight: 700;
+      font-size: .88rem;
+      display: none;
+      z-index: 999;
+    }
+    #toast.ok   { background: #d1fae5; color: #065f46; display: block; }
+    #toast.erro { background: #fee2e2; color: #dc2626; display: block; }
+
+    /* ── Dark mode ───────────────────────────────── */
+    [data-theme="dark"] body          { background: #0f172a; color: #f1f5f9; }
+    [data-theme="dark"] .card         { background: #1e293b; border-color: #334155; }
+    [data-theme="dark"] table         { border-color: #334155; }
+    [data-theme="dark"] thead         { background: #0f172a; }
+    [data-theme="dark"] th            { background: #0f172a; border-color: #334155; color: #94a3b8; }
+    [data-theme="dark"] td            { border-color: #334155; color: #e2e8f0; }
+    [data-theme="dark"] tr:hover      { background: #334155 !important; }
+    [data-theme="dark"] .page-title   { color: #f1f5f9; }
+    [data-theme="dark"] .conta-card   { background: #1e293b; border-color: #334155; }
+    [data-theme="dark"] .conta-header { background: #0f172a; }
+    [data-theme="dark"] .conta-field label { color: #94a3b8; }
+    [data-theme="dark"] .conta-field input { background: #0f172a; border-color: #334155; color: #f1f5f9; }
+    [data-theme="dark"] .btn-salvar   { background: #10B981; color: #0f172a; }
+    [data-theme="dark"] .btn-salvar:hover { background: #059669; }
+    [data-theme="dark"] #msg-conta.ok   { background: #022c22; color: #6ee7b7; }
+    [data-theme="dark"] #msg-conta.erro { background: #450a0a; color: #fca5a5; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <span class="brand-name">Baruch<em>Gest</em> <span style="font-weight:400;font-size:.85rem;color:rgba(255,255,255,.5)">— Admin</span></span>
+    <div class="header-nav">
+      <a href="index.html" class="nav-link">Simulador</a>
+      <button id="theme-toggle" onclick="toggleTheme()" title="Alternar tema" style="background:none;border:1.5px solid rgba(255,255,255,.3);border-radius:8px;color:rgba(255,255,255,.8);padding:6px 12px;cursor:pointer;font-size:.85rem;transition:background .15s">🌙</button>
+      <button id="btn-sair" onclick="sair()">Sair</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <h1 class="page-title">Gerenciar Usuários</h1>
+
+  <div class="card">
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Cadastro</th>
+            <th>Último acesso</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <tr><td colspan="6" class="empty">Carregando…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<!-- ── Minha Conta ─────────────────────────────────────── -->
+  <div class="conta-card">
+    <div class="conta-header">🔑 Minha Conta — Alterar Email e Senha</div>
+    <div class="conta-body">
+      <div class="conta-grid">
+        <div class="conta-field">
+          <label>Senha atual <span style="color:#dc2626">*</span></label>
+          <input type="password" id="conta-senha-atual" placeholder="Senha atual">
+        </div>
+        <div class="conta-field">
+          <label>Novo email <small>(deixe vazio para não alterar)</small></label>
+          <input type="email" id="conta-email" placeholder="novo@email.com">
+        </div>
+        <div class="conta-field">
+          <label>Nova senha <small>(deixe vazio para não alterar)</small></label>
+          <input type="password" id="conta-nova-senha" placeholder="Mín. 6 caracteres">
+        </div>
+        <div class="conta-field">
+          <label>Confirmar nova senha</label>
+          <input type="password" id="conta-confirma-senha" placeholder="Repita a nova senha">
+        </div>
+      </div>
+      <button class="btn-salvar" id="btn-salvar-conta" onclick="salvarConta()">Salvar alterações</button>
+      <div id="msg-conta"></div>
+    </div>
+  </div>
+</main>
+
+<div id="toast"></div>
+
+<script src="theme.js"></script>
+<script src="config.js"></script>
+<script>
+  const API = window.BARUCHGEST_API;
+
+  const token   = localStorage.getItem('bg_token');
+  const isAdmin = localStorage.getItem('bg_isAdmin') === 'true';
+
+  if (!token)   { window.location.href = 'login.html'; }
+  if (!isAdmin) { alert('Acesso negado.'); window.location.href = 'index.html'; }
+
+  function headers() {
+    return { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
+  }
+
+  function toast(msg, tipo = 'ok') {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = tipo;
+    setTimeout(() => { el.className = ''; el.style.display = 'none'; }, 3000);
+  }
+
+  function fmt(dtStr) {
+    if (!dtStr) return '—';
+    const d = new Date(dtStr);
+    return d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  async function carregar() {
+    const res  = await fetch(`${API}/api/admin/usuarios`, { headers: headers() });
+    const lista = await res.json();
+
+    const tbody = document.getElementById('tbody');
+    if (!lista.length) {
+      tbody.innerHTML = '<tr><td colspan="6" class="empty">Nenhum usuário cadastrado.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = lista.map(u => `
+      <tr id="row-${u.id}">
+        <td><strong>${u.nome}</strong> ${u.isAdmin ? '<span class="badge badge-admin">Admin</span>' : ''}</td>
+        <td>${u.email}</td>
+        <td><span class="badge ${u.ativo ? 'badge-ativo' : 'badge-inativo'}">${u.ativo ? 'Ativo' : 'Aguardando'}</span></td>
+        <td>${fmt(u.criadoEm)}</td>
+        <td>${fmt(u.ultimoAcesso)}</td>
+        <td>
+          ${!u.isAdmin ? `
+            <button class="btn-acao ${u.ativo ? 'btn-bloquear' : 'btn-ativar'}" onclick="toggle(${u.id}, ${u.ativo})">
+              ${u.ativo ? 'Bloquear' : 'Liberar'}
+            </button>
+            <button class="btn-acao btn-excluir" onclick="excluir(${u.id}, '${u.nome}')">Excluir</button>
+          ` : '<span style="color:#94a3b8;font-size:.8rem">conta admin</span>'}
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  async function toggle(id, ativoAtual) {
+    const res  = await fetch(`${API}/api/admin/usuarios/${id}/toggle`, { method: 'PUT', headers: headers() });
+    const data = await res.json();
+    if (!res.ok) { toast(data.erro || 'Erro.', 'erro'); return; }
+    toast(data.ativo ? 'Usuário liberado.' : 'Usuário bloqueado.');
+    carregar();
+  }
+
+  async function excluir(id, nome) {
+    if (!confirm(`Excluir o usuário "${nome}"? Esta ação não pode ser desfeita.`)) return;
+    const res = await fetch(`${API}/api/admin/usuarios/${id}`, { method: 'DELETE', headers: headers() });
+    if (!res.ok) { const d = await res.json(); toast(d.erro || 'Erro ao excluir.', 'erro'); return; }
+    toast('Usuário excluído.');
+    carregar();
+  }
+
+  async function salvarConta() {
+    const senhaAtual    = document.getElementById('conta-senha-atual').value;
+    const novoEmail     = document.getElementById('conta-email').value.trim();
+    const novaSenha     = document.getElementById('conta-nova-senha').value;
+    const confirmaSenha = document.getElementById('conta-confirma-senha').value;
+    const msg           = document.getElementById('msg-conta');
+    const btn           = document.getElementById('btn-salvar-conta');
+
+    msg.className = '';
+
+    if (!senhaAtual) { msg.textContent = 'Informe a senha atual.'; msg.className = 'erro'; return; }
+    if (!novoEmail && !novaSenha) { msg.textContent = 'Informe o novo email ou a nova senha.'; msg.className = 'erro'; return; }
+    if (novaSenha && novaSenha !== confirmaSenha) { msg.textContent = 'As senhas não coincidem.'; msg.className = 'erro'; return; }
+
+    btn.disabled = true; btn.textContent = 'Salvando…';
+
+    try {
+      const res  = await fetch(`${API}/api/admin/minha-conta`, {
+        method: 'PUT',
+        headers: headers(),
+        body: JSON.stringify({ senhaAtual, novoEmail: novoEmail || null, novaSenha: novaSenha || null }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) { msg.textContent = data.erro; msg.className = 'erro'; return; }
+
+      msg.textContent = data.mensagem;
+      msg.className = 'ok';
+      // Limpa campos e desloga (novo email/senha exige novo login)
+      setTimeout(() => sair(), 2500);
+    } catch {
+      msg.textContent = 'Erro de conexão.'; msg.className = 'erro';
+    } finally {
+      btn.disabled = false; btn.textContent = 'Salvar alterações';
+    }
+  }
+
+  function sair() {
+    localStorage.clear();
+    window.location.href = 'login.html';
+  }
+
+  carregar();
+</script>
+</body>
+</html>
