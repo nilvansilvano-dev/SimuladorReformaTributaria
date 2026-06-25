@@ -1,10 +1,8 @@
 services:
   - type: web
     name: baruchgest-api
-    runtime: dotnet
-    rootDir: backend
-    buildCommand: dotnet publish Api.csproj -c Release -o ../publish
-    startCommand: cd ../publish && ./Api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: JWT_SECRET
         generateValue: true
