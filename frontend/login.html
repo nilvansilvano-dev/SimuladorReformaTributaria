@@ -1,0 +1,276 @@
+com oe<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BaruchGest — Acesso</title>
+  <style>
+    :root {
+      --navy:    #0F172A;
+      --emerald: #10B981;
+      --dk:      #059669;
+      --white:   #FFFFFF;
+      --gray:    #f1f5f9;
+      --border:  #e2e8f0;
+      --radius:  8px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--navy);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    /* ── Brand ─────────────────────────────────────── */
+    .brand {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .brand-name {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -1px;
+    }
+    .brand-name em { color: var(--emerald); font-style: normal; }
+    .brand-sub {
+      display: block;
+      font-size: .8rem;
+      color: rgba(255,255,255,.55);
+      font-style: italic;
+      margin-top: 4px;
+    }
+
+    /* ── Card ──────────────────────────────────────── */
+    .card {
+      background: var(--white);
+      border-radius: 14px;
+      width: 100%;
+      max-width: 420px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.4);
+    }
+
+    /* ── Abas ──────────────────────────────────────── */
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 2px solid var(--border);
+    }
+    .tab {
+      padding: 14px;
+      text-align: center;
+      font-weight: 700;
+      font-size: .9rem;
+      color: #64748b;
+      cursor: pointer;
+      background: none;
+      border: none;
+      transition: all .18s;
+    }
+    .tab.active {
+      color: var(--navy);
+      box-shadow: inset 0 -2px 0 var(--emerald);
+    }
+
+    /* ── Painel ────────────────────────────────────── */
+    .panel { display: none; padding: 28px 28px 32px; }
+    .panel.active { display: block; }
+
+    .panel h2 {
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: .82rem;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 5px;
+    }
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-size: .95rem;
+      color: var(--navy);
+      transition: border-color .15s, box-shadow .15s;
+      margin-bottom: 16px;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--emerald);
+      box-shadow: 0 0 0 3px rgba(16,185,129,.18);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .18s;
+      margin-top: 4px;
+    }
+    .btn:hover { background: #1e293b; }
+    .btn:disabled { opacity: .6; cursor: not-allowed; }
+
+    .msg {
+      margin-top: 14px;
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      font-size: .85rem;
+      font-weight: 600;
+      display: none;
+    }
+    .msg.erro  { background: #fee2e2; color: #dc2626; display: block; }
+    .msg.ok    { background: #d1fae5; color: #065f46; display: block; }
+
+    /* ── Footer ────────────────────────────────────── */
+    .footer {
+      margin-top: 24px;
+      font-size: .75rem;
+      color: rgba(255,255,255,.35);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="brand">
+  <span class="brand-name">Baruch<em>Gest</em></span>
+  <span class="brand-sub">Transformando controle em crescimento.</span>
+</div>
+
+<div class="card">
+  <div class="tabs">
+    <button class="tab active" id="tab-login"    onclick="showTab('login')">Entrar</button>
+    <button class="tab"        id="tab-registro" onclick="showTab('registro')">Criar conta</button>
+  </div>
+
+  <!-- LOGIN -->
+  <div class="panel active" id="panel-login">
+    <h2>Acesse o Simulador</h2>
+    <label for="login-email">Email</label>
+    <input type="email" id="login-email" placeholder="seu@email.com" autocomplete="email">
+    <label for="login-senha">Senha</label>
+    <input type="password" id="login-senha" placeholder="••••••••" autocomplete="current-password">
+    <button class="btn" id="btn-login" onclick="fazerLogin()">Entrar</button>
+    <div class="msg" id="msg-login"></div>
+  </div>
+
+  <!-- REGISTRO -->
+  <div class="panel" id="panel-registro">
+    <h2>Solicitar Acesso</h2>
+    <label for="reg-nome">Nome completo</label>
+    <input type="text" id="reg-nome" placeholder="Seu Nome">
+    <label for="reg-email">Email</label>
+    <input type="email" id="reg-email" placeholder="seu@email.com">
+    <label for="reg-senha">Senha <small>(mín. 6 caracteres)</small></label>
+    <input type="password" id="reg-senha" placeholder="••••••••">
+    <button class="btn" id="btn-reg" onclick="fazerRegistro()">Solicitar acesso</button>
+    <div class="msg" id="msg-reg"></div>
+  </div>
+</div>
+
+<p class="footer">Simulador de Impacto da Reforma Tributária IBS/CBS</p>
+
+<script>
+  const API = 'http://localhost:5000';
+
+  // Redireciona se já logado
+  if (localStorage.getItem('bg_token')) {
+    window.location.href = 'index.html';
+  }
+
+  function showTab(tab) {
+    document.getElementById('tab-login').classList.toggle('active', tab === 'login');
+    document.getElementById('tab-registro').classList.toggle('active', tab === 'registro');
+    document.getElementById('panel-login').classList.toggle('active', tab === 'login');
+    document.getElementById('panel-registro').classList.toggle('active', tab === 'registro');
+  }
+
+  function setMsg(id, texto, tipo) {
+    const el = document.getElementById(id);
+    el.textContent = texto;
+    el.className = 'msg ' + tipo;
+  }
+
+  async function fazerLogin() {
+    const email = document.getElementById('login-email').value.trim();
+    const senha = document.getElementById('login-senha').value;
+    if (!email || !senha) { setMsg('msg-login', 'Preencha email e senha.', 'erro'); return; }
+
+    const btn = document.getElementById('btn-login');
+    btn.disabled = true; btn.textContent = 'Aguarde…';
+
+    try {
+      const res  = await fetch(`${API}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, senha }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) { setMsg('msg-login', data.erro || 'Erro ao entrar.', 'erro'); return; }
+
+      localStorage.setItem('bg_token',   data.token);
+      localStorage.setItem('bg_nome',    data.nome);
+      localStorage.setItem('bg_isAdmin', data.isAdmin);
+      window.location.href = 'index.html';
+    } catch {
+      setMsg('msg-login', 'Não foi possível conectar à API. Verifique se ela está rodando.', 'erro');
+    } finally {
+      btn.disabled = false; btn.textContent = 'Entrar';
+    }
+  }
+
+  async function fazerRegistro() {
+    const nome  = document.getElementById('reg-nome').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const senha = document.getElementById('reg-senha').value;
+    if (!nome || !email || !senha) { setMsg('msg-reg', 'Preencha todos os campos.', 'erro'); return; }
+
+    const btn = document.getElementById('btn-reg');
+    btn.disabled = true; btn.textContent = 'Enviando…';
+
+    try {
+      const res  = await fetch(`${API}/api/auth/registrar`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, email, senha }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) { setMsg('msg-reg', data.erro || 'Erro no cadastro.', 'erro'); return; }
+      setMsg('msg-reg', data.mensagem, 'ok');
+      document.getElementById('reg-nome').value = '';
+      document.getElementById('reg-email').value = '';
+      document.getElementById('reg-senha').value = '';
+    } catch {
+      setMsg('msg-reg', 'Não foi possível conectar à API.', 'erro');
+    } finally {
+      btn.disabled = false; btn.textContent = 'Solicitar acesso';
+    }
+  }
+
+  // Enter nas senhas dispara login/registro
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('login-senha').addEventListener('keydown', e => e.key === 'Enter' && fazerLogin());
+    document.getElementById('reg-senha').addEventListener('keydown',   e => e.key === 'Enter' && fazerRegistro());
+  });
+</script>
+</body>
+</html>

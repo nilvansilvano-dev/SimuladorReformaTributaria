@@ -1,0 +1,711 @@
+/* ── Reset & Variáveis (Paleta BaruchGest) ─────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Cores da marca */
+  --navy:      #0F172A;   /* Azul escuro — confiança e controle */
+  --emerald:   #10B981;   /* Verde esmeralda — crescimento      */
+  --white:     #FFFFFF;   /* Branco — clareza                   */
+
+  /* Tons de apoio */
+  --emerald-dk:#059669;
+  --emerald-bg:#d1fae5;
+  --red:       #dc2626;
+  --red-bg:    #fee2e2;
+  --gray-50:   #f8fafc;
+  --gray-100:  #f1f5f9;
+  --gray-200:  #e2e8f0;
+  --gray-400:  #94a3b8;
+  --gray-600:  #475569;
+  --gray-800:  #1e293b;
+
+  --shadow:    0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06);
+  --radius:    8px;
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--gray-100);
+  color: var(--gray-800);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ── Header ────────────────────────────────────────────────────── */
+header {
+  background: linear-gradient(135deg, var(--navy) 0%, #1a3252 100%);
+  color: var(--white);
+  padding: 20px 24px;
+  border-bottom: 2px solid var(--emerald);
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+/* ── Marca BaruchGest ──────────────────────────────────────────── */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.brand-logo-icon {
+  width: 52px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brand-name {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -.5px;
+  line-height: 1;
+}
+
+.brand-name .green { color: var(--emerald); }
+
+.brand-sub {
+  font-size: .72rem;
+  color: rgba(255,255,255,.6);
+  font-style: italic;
+}
+
+/* ── Título do simulador ───────────────────────────────────────── */
+.header-title {
+  border-left: 1px solid rgba(255,255,255,.2);
+  padding-left: 28px;
+}
+
+.header-title h1 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -.3px;
+  margin-bottom: 3px;
+}
+
+.header-title p {
+  font-size: .78rem;
+  opacity: .6;
+}
+
+/* ── Header — usuário logado ────────────────────────────────────── */
+.header-inner { justify-content: space-between; }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.header-username {
+  font-size: .8rem;
+  color: rgba(255,255,255,.65);
+  font-weight: 600;
+}
+
+.header-btn {
+  padding: 6px 14px;
+  border-radius: var(--radius);
+  font-size: .8rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1.5px solid rgba(255,255,255,.3);
+  background: transparent;
+  color: rgba(255,255,255,.8);
+  transition: all .15s;
+}
+.header-btn:hover { background: rgba(255,255,255,.12); color: var(--white); }
+.header-btn-sair  { border-color: rgba(255,255,255,.25); }
+
+/* ── Main Layout ───────────────────────────────────────────────── */
+main {
+  max-width: 1100px;
+  margin: 24px auto;
+  padding: 0 16px 48px;
+}
+
+/* ── Form / Details ────────────────────────────────────────────── */
+#form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+details {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+details[open] > summary {
+  border-bottom: 1px solid var(--gray-200);
+}
+
+summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 18px;
+  font-weight: 600;
+  font-size: .9rem;
+  color: var(--navy);
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+
+summary::-webkit-details-marker { display: none; }
+
+summary::after {
+  content: '▾';
+  margin-left: auto;
+  font-size: .75rem;
+  color: var(--gray-400);
+  transition: transform .2s;
+}
+
+details[open] summary::after { transform: rotate(-180deg); }
+
+details[open] > summary { color: var(--navy); border-left: 3px solid var(--emerald); padding-left: 15px; }
+
+.sec-icon { font-size: 1rem; }
+
+.fields { padding: 16px 18px 18px; }
+
+/* ── Field Rows ────────────────────────────────────────────────── */
+.field-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.field-row:last-child { margin-bottom: 0; }
+
+.field {
+  flex: 1 1 160px;
+  min-width: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.field.wide { flex: 2 1 320px; }
+
+label {
+  font-size: .8rem;
+  font-weight: 500;
+  color: var(--gray-600);
+}
+
+label small {
+  font-weight: 400;
+  color: var(--gray-400);
+}
+
+input[type="number"],
+input[type="text"] {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+  font-size: .9rem;
+  font-family: var(--font);
+  color: var(--gray-800);
+  background: var(--gray-50);
+  transition: border-color .15s, box-shadow .15s;
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button { opacity: .4; }
+
+input[type="number"]:focus,
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--emerald);
+  box-shadow: 0 0 0 3px rgba(16,185,129,.18);
+  background: var(--white);
+}
+
+.input-pct {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+  background: var(--gray-50);
+  overflow: hidden;
+  transition: border-color .15s, box-shadow .15s;
+}
+
+.input-pct:focus-within {
+  border-color: var(--emerald);
+  box-shadow: 0 0 0 3px rgba(16,185,129,.18);
+  background: var(--white);
+}
+
+.input-pct input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  padding: 8px 8px 8px 10px;
+}
+
+.input-pct input:focus { box-shadow: none; }
+
+.input-pct span {
+  padding: 0 10px 0 2px;
+  color: var(--gray-400);
+  font-size: .85rem;
+  font-weight: 500;
+}
+
+.display-value {
+  padding: 8px 10px;
+  background: var(--emerald-bg);
+  border: 1px solid rgba(16,185,129,.35);
+  border-radius: 6px;
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--emerald-dk);
+}
+
+/* ── Botão Calcular ────────────────────────────────────────────── */
+.btn-row {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0 4px;
+}
+
+.btn-calcular {
+  background: var(--emerald);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  padding: 14px 44px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: var(--font);
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(16,185,129,.35);
+  transition: background .15s, transform .1s, box-shadow .15s;
+  letter-spacing: .3px;
+}
+
+.btn-calcular:hover {
+  background: var(--emerald-dk);
+  box-shadow: 0 4px 18px rgba(16,185,129,.5);
+}
+
+.btn-calcular:active { transform: scale(.98); }
+
+/* ── Resultados ────────────────────────────────────────────────── */
+.results-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 32px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--emerald);
+}
+
+/* ── Tabs ──────────────────────────────────────────────────────── */
+.dre-section {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 2px solid var(--gray-200);
+  background: var(--gray-50);
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 12px 8px;
+  border: none;
+  background: transparent;
+  font-family: var(--font);
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--gray-600);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color .15s, border-color .15s;
+  white-space: nowrap;
+}
+
+.tab-btn:hover { color: var(--emerald); }
+
+.tab-btn.active {
+  color: var(--navy);
+  border-bottom-color: var(--emerald);
+  background: var(--white);
+}
+
+/* ── Tabela DRE ────────────────────────────────────────────────── */
+.dre-panel { display: none; }
+.dre-panel.active { display: block; }
+
+.dre-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .875rem;
+}
+
+.dre-table th {
+  background: var(--navy);
+  color: var(--white);
+  padding: 10px 14px;
+  text-align: right;
+  font-weight: 600;
+  font-size: .8rem;
+  letter-spacing: .4px;
+}
+
+.dre-table th:first-child { text-align: left; }
+
+.dre-table td {
+  padding: 8px 14px;
+  text-align: right;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.dre-table td:first-child {
+  text-align: left;
+  color: var(--gray-600);
+}
+
+.dre-table tr:hover td { background: var(--gray-50); }
+
+.dre-table tr.sep td {
+  border-bottom: 2px solid var(--gray-200);
+  padding-bottom: 0;
+  height: 4px;
+}
+
+.dre-table tr.bold td {
+  font-weight: 700;
+  color: var(--gray-800);
+  background: var(--gray-50);
+}
+
+.dre-table tr.destaque td {
+  font-weight: 700;
+  font-size: .95rem;
+  background: var(--navy);
+  color: var(--white);
+  border-bottom: none;
+}
+
+.dre-table tr.destaque td:first-child { color: var(--white); }
+.dre-table tr.destaque .pos { color: #6ee7b7; }  /* emerald claro */
+.dre-table tr.destaque .neg { color: #fca5a5; }
+
+.pos { color: var(--emerald); }
+.neg { color: var(--red); }
+.neu { color: var(--gray-400); }
+
+/* ── Comparativo ───────────────────────────────────────────────── */
+.comparativo-section {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px 20px 16px;
+}
+
+.comparativo-section h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 14px;
+  padding-left: 10px;
+  border-left: 3px solid var(--emerald);
+}
+
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .875rem;
+}
+
+.comp-table th {
+  background: var(--navy);
+  color: var(--white);
+  padding: 10px 14px;
+  text-align: right;
+  font-weight: 600;
+  font-size: .8rem;
+  letter-spacing: .4px;
+}
+
+.comp-table th:first-child { text-align: left; }
+
+.comp-table td {
+  padding: 10px 14px;
+  text-align: right;
+  border-bottom: 1px solid var(--gray-100);
+  font-size: .9rem;
+}
+
+.comp-table td:first-child {
+  text-align: left;
+  font-weight: 600;
+  color: var(--gray-800);
+}
+
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table tr:hover td { background: var(--gray-50); }
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: .8rem;
+  font-weight: 700;
+}
+
+.badge.pos { background: var(--emerald-bg); color: var(--emerald-dk); }
+.badge.neg { background: var(--red-bg);     color: var(--red); }
+
+.obs {
+  margin-top: 14px;
+  font-size: .78rem;
+  color: var(--gray-400);
+  line-height: 1.7;
+}
+
+/* ── Footer ────────────────────────────────────────────────────── */
+footer {
+  text-align: center;
+  padding: 20px;
+  color: var(--gray-400);
+  font-size: .8rem;
+  border-top: 1px solid var(--gray-200);
+  background: var(--white);
+}
+
+/* ── Cabeçalho dos resultados ──────────────────────────────────── */
+.results-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 32px 0 8px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--emerald);
+}
+
+.results-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--navy);
+  /* border e margin migrados para .results-head */
+}
+
+.empresa-nome {
+  font-size: .85rem;
+  color: var(--gray-600);
+  font-style: italic;
+  margin-top: 2px;
+}
+
+/* ── Botão Exportar PDF ────────────────────────────────────────── */
+.btn-pdf {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--white);
+  color: var(--emerald-dk);
+  border: 2px solid var(--emerald);
+  border-radius: var(--radius);
+  padding: 9px 20px;
+  font-size: .9rem;
+  font-weight: 700;
+  font-family: var(--font);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .15s, color .15s;
+  flex-shrink: 0;
+}
+
+.btn-pdf:hover {
+  background: var(--emerald);
+  color: var(--white);
+}
+
+.btn-pdf:active { transform: scale(.97); }
+
+/* ── Título de regime dentro do painel (visível só no print) ───── */
+.dre-regime-title {
+  display: none;
+  padding: 9px 14px;
+  background: var(--navy);
+  color: var(--white);
+  font-weight: 700;
+  font-size: .88rem;
+  letter-spacing: .3px;
+}
+
+/* ── Elementos exclusivos para impressão ───────────────────────── */
+.print-only { display: none; }
+
+/* ── Cabeçalho de impressão ────────────────────────────────────── */
+#print-header {
+  border-bottom: 3px solid var(--emerald);
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+}
+
+.ph-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.ph-brand {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--gray-200);
+  padding-right: 24px;
+  flex-shrink: 0;
+}
+
+.ph-brand-name {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--navy);
+  letter-spacing: -.5px;
+}
+
+.ph-brand-name em {
+  font-style: normal;
+  color: var(--emerald);
+}
+
+.ph-brand-sub {
+  font-size: .72rem;
+  color: var(--gray-400);
+  font-style: italic;
+}
+
+.ph-title-block { flex: 1; }
+
+.ph-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.ph-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: .8rem;
+  color: var(--gray-600);
+}
+
+.ph-meta span:not(:empty)::before { content: '·  '; color: var(--emerald); }
+.ph-meta span:first-child::before { content: ''; }
+
+/* ── Responsivo ────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .header-inner    { gap: 16px; }
+  .header-title    { border-left: none; padding-left: 0; }
+  .header-title h1 { font-size: 1rem; }
+  .brand-logo-icon { width: 38px; }
+  .field           { flex: 1 1 100%; }
+  .tab-btn         { font-size: .7rem; padding: 10px 4px; }
+  .dre-table th, .dre-table td { padding: 7px 8px; font-size: .8rem; }
+  .comp-table th, .comp-table td { padding: 8px;  font-size: .8rem; }
+  .results-head    { flex-direction: column; gap: 10px; }
+  .btn-pdf         { align-self: flex-start; }
+}
+
+/* ── Impressão / Export PDF ────────────────────────────────────── */
+@media print {
+  /* Cores de fundo preservadas */
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Zerar margens padrão do browser */
+  html, body { margin: 0 !important; padding: 0 !important; background: white !important; }
+
+  /* Ocultar elementos que não fazem parte do relatório */
+  header, #form, footer, .btn-pdf { display: none !important; }
+
+  /* Mostrar cabeçalho do PDF e títulos de regime */
+  .print-only       { display: block !important; }
+  .dre-regime-title { display: block !important; }
+
+  main { margin: 0 !important; padding: 0 !important; }
+
+  /* Exibir todos os painéis DRE (não só o ativo) */
+  .dre-panel { display: block !important; }
+  .tabs      { display: none !important; }
+
+  /* .dre-section pode quebrar entre páginas (evita folha em branco);
+     cada painel individualmente protegido contra quebra interna */
+  .dre-section {
+    box-shadow: none !important;
+    border: 1px solid var(--gray-200) !important;
+    margin-bottom: 14px;
+    break-inside: auto;       /* ← permite quebra entre os painéis */
+  }
+
+  .dre-panel {
+    break-inside: avoid;      /* ← cada painel fica inteiro numa página */
+  }
+
+  .comparativo-section {
+    box-shadow: none !important;
+    border: 1px solid var(--gray-200) !important;
+    break-inside: avoid;
+  }
+
+  .dre-table, .comp-table { break-inside: avoid; }
+
+  /* Sem margem extra no topo dos resultados */
+  .results-head { margin-top: 8px !important; border-bottom-color: var(--emerald); }
+
+  .obs { color: var(--gray-600) !important; }
+
+  #print-header { margin: 0 0 16px !important; }
+
+  @page {
+    size: A4 portrait;
+    margin: 1.4cm 1.2cm;
+  }
+}
