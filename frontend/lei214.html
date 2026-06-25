@@ -275,12 +275,101 @@
     [data-theme="dark"] .timeline-desc { color: #94a3b8; }
     [data-theme="dark"] .flow-box    { background: #1e293b; border-color: #334155; color: #e2e8f0; }
 
-    /* ── Responsivo ──────────────────────────────────────── */
+    /* ── Princípios ─────────────────────────────────────────── */
+    .principio-card { border-left: 3px solid var(--emerald); padding: 12px 16px; }
+    .principio-card .titulo { font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+    .principio-card .desc   { font-size: .83rem; color: #64748b; line-height: 1.5; }
+    [data-theme="dark"] .principio-card .titulo { color: #f1f5f9; }
+    [data-theme="dark"] .principio-card .desc   { color: #94a3b8; }
+
+    /* ── Cards do Split Payment ──────────────────────────────── */
+    .benefit-card { border-radius: 8px; padding: 14px; }
+    .benefit-card .titulo  { font-weight: 800; margin-bottom: 4px; }
+    .benefit-card .desc    { font-size: .82rem; }
+    .benefit-card.verde    { background: #f0fdf4; border: 1px solid #bbf7d0; }
+    .benefit-card.verde .titulo { color: #065f46; }
+    .benefit-card.verde .desc   { color: #047857; }
+    .benefit-card.vermelho { background: #fff1f2; border: 1px solid #fecdd3; }
+    .benefit-card.vermelho .titulo { color: #be123c; }
+    .benefit-card.vermelho .desc   { color: #be123c; }
+    [data-theme="dark"] .benefit-card.verde    { background: #022c22; border-color: #065f46; }
+    [data-theme="dark"] .benefit-card.verde .titulo { color: #6ee7b7; }
+    [data-theme="dark"] .benefit-card.verde .desc   { color: #34d399; }
+    [data-theme="dark"] .benefit-card.vermelho { background: #2d0a0a; border-color: #7f1d1d; }
+    [data-theme="dark"] .benefit-card.vermelho .titulo { color: #fca5a5; }
+    [data-theme="dark"] .benefit-card.vermelho .desc   { color: #f87171; }
+
+    /* ── Split box amarelo (banco) ───────────────────────────── */
+    .split-box-banco { background: #fffbeb; border-color: #fcd34d !important; }
+    [data-theme="dark"] .split-box-banco { background: #1c1000; border-color: #92400e !important; }
+    [data-theme="dark"] .split-box-banco .label { color: #fcd34d; }
+    [data-theme="dark"] .split-box-banco .sub   { color: #a16207; }
+
+    /* ── Texto Completo da Lei ───────────────────────────────── */
+    .lei-desc { font-size: .9rem; color: #475569; margin-bottom: 20px; line-height: 1.6; }
+    [data-theme="dark"] .lei-desc { color: #94a3b8; }
+    .btn-lei {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #0F172A; color: white;
+      padding: 14px 28px; border-radius: 8px;
+      text-decoration: none; font-weight: 700; font-size: .95rem; transition: background .15s;
+    }
+    .btn-lei:hover { background: #1e293b; }
+    [data-theme="dark"] .btn-lei       { background: var(--emerald); color: #0f172a; }
+    [data-theme="dark"] .btn-lei:hover { background: #059669; }
+
+    /* ── Grids das seções ───────────────────────────────────────── */
+    .benefit-grid   { margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .principios-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+
+    /* ── Scroll na tabela de substituição ───────────────────────── */
+    .sub-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .sub-table-scroll .sub-table { min-width: 480px; }
+
+    /* ── Responsivo — Tablet (≤ 768px) ──────────────────────────── */
+    @media (max-width: 768px) {
+      main { padding: 20px 16px 48px; }
+      .hero { padding: 28px 16px 24px; }
+      .hero h1 { font-size: 1.5rem; }
+      .section-body { padding: 16px 18px; }
+      .split-flow { gap: 0; }
+    }
+
+    /* ── Responsivo — Mobile (≤ 600px) ──────────────────────────── */
     @media (max-width: 600px) {
-      .hero h1 { font-size: 1.3rem; }
+      /* Header */
+      .header-inner { padding: 0 14px; }
+      .brand-name   { font-size: 1.1rem; }
+      .nav a        { padding: 5px 9px; font-size: .75rem; }
+      #theme-toggle { padding: 5px 9px !important; font-size: .78rem !important; }
+
+      /* Hero */
+      .hero h1 { font-size: 1.2rem; }
+      .hero p  { font-size: .85rem; }
+
+      /* Cards de impostos em coluna */
+      .imposto-grid { grid-template-columns: 1fr; }
+      .seta { display: none; }
+
+      /* Split payment */
       .split-result { grid-template-columns: 1fr; }
-      .split-flow { flex-direction: column; }
-      .split-arrow { transform: rotate(90deg); }
+      .split-flow   { flex-direction: column; align-items: stretch; }
+      .split-arrow  { transform: rotate(90deg); text-align: center; }
+      .split-box, .split-box-banco { min-width: unset; }
+
+      /* Grid dos benefícios e princípios em coluna */
+      .benefit-grid, .principios-grid { grid-template-columns: 1fr; }
+
+      /* Isenções */
+      .isencao-grid { grid-template-columns: 1fr 1fr; }
+
+      /* Tabela sub */
+      .sub-table th, .sub-table td { padding: 8px 10px; font-size: .82rem; }
+
+      /* Cronograma */
+      .timeline { padding-left: 20px; }
+      .tl-title { font-size: .85rem; }
+      .tl-desc  { font-size: .78rem; }
     }
   </style>
 </head>
@@ -347,6 +436,7 @@
       <h2>Impostos que saem × que entram</h2>
     </div>
     <div class="section-body">
+      <div class="sub-table-scroll">
       <table class="sub-table">
         <thead>
           <tr><th>Tributo atual</th><th>Âmbito</th><th>Substituído por</th><th>Extinção</th></tr>
@@ -384,6 +474,7 @@
           </tr>
         </tbody>
       </table>
+      </div>
     </div>
   </div>
 
@@ -406,7 +497,7 @@
           <div class="sub">paga R$ 1.280</div>
         </div>
         <div class="split-arrow">→</div>
-        <div class="split-box" style="background:#fffbeb;border-color:#fcd34d">
+        <div class="split-box split-box-banco">
           <div class="icon">🏦</div>
           <div class="label">Sistema Financeiro</div>
           <div class="sub">divide automaticamente</div>
@@ -424,22 +515,22 @@
         </div>
       </div>
 
-      <div style="margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
-        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:14px">
-          <div style="font-weight:800;color:#065f46;margin-bottom:4px">✓ Elimina sonegação</div>
-          <div style="font-size:.82rem;color:#047857">O imposto nunca fica na mão do vendedor</div>
+      <div class="benefit-grid">
+        <div class="benefit-card verde">
+          <div class="titulo">✓ Elimina sonegação</div>
+          <div class="desc">O imposto nunca fica na mão do vendedor</div>
         </div>
-        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:14px">
-          <div style="font-weight:800;color:#065f46;margin-bottom:4px">✓ Arrecadação imediata</div>
-          <div style="font-size:.82rem;color:#047857">Governo recebe no ato da venda</div>
+        <div class="benefit-card verde">
+          <div class="titulo">✓ Arrecadação imediata</div>
+          <div class="desc">Governo recebe no ato da venda</div>
         </div>
-        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:14px">
-          <div style="font-weight:800;color:#065f46;margin-bottom:4px">✓ Devolução automática</div>
-          <div style="font-size:.82rem;color:#047857">Créditos restituídos em até 60 dias</div>
+        <div class="benefit-card verde">
+          <div class="titulo">✓ Devolução automática</div>
+          <div class="desc">Créditos restituídos em até 60 dias</div>
         </div>
-        <div style="background:#fff1f2;border:1px solid #fecdd3;border-radius:8px;padding:14px">
-          <div style="font-weight:800;color:#be123c;margin-bottom:4px">⚠ Impacto no caixa</div>
-          <div style="font-size:.82rem;color:#be123c">Empresa não usa mais o imposto como capital de giro</div>
+        <div class="benefit-card vermelho">
+          <div class="titulo">⚠ Impacto no caixa</div>
+          <div class="desc">Empresa não usa mais o imposto como capital de giro</div>
         </div>
       </div>
     </div>
@@ -513,22 +604,22 @@
       <h2>Princípios do Novo Sistema</h2>
     </div>
     <div class="section-body">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
-        <div style="border-left:3px solid var(--emerald);padding:12px 16px">
-          <div style="font-weight:800;color:var(--navy);margin-bottom:4px">Não Cumulatividade Plena</div>
-          <div style="font-size:.83rem;color:#64748b;line-height:1.5">Crédito em todas as etapas da cadeia produtiva. O imposto incide só sobre o valor agregado, eliminando a cascata.</div>
+      <div class="principios-grid">
+        <div class="principio-card">
+          <div class="titulo">Não Cumulatividade Plena</div>
+          <div class="desc">Crédito em todas as etapas da cadeia produtiva. O imposto incide só sobre o valor agregado, eliminando a cascata.</div>
         </div>
-        <div style="border-left:3px solid var(--emerald);padding:12px 16px">
-          <div style="font-weight:800;color:var(--navy);margin-bottom:4px">Princípio do Destino</div>
-          <div style="font-size:.83rem;color:#64748b;line-height:1.5">O imposto é arrecadado no estado/município onde o consumidor está, não onde a empresa é sediada. Beneficia regiões consumidoras.</div>
+        <div class="principio-card">
+          <div class="titulo">Princípio do Destino</div>
+          <div class="desc">O imposto é arrecadado no estado/município onde o consumidor está, não onde a empresa é sediada. Beneficia regiões consumidoras.</div>
         </div>
-        <div style="border-left:3px solid var(--emerald);padding:12px 16px">
-          <div style="font-weight:800;color:var(--navy);margin-bottom:4px">Alíquota Uniforme</div>
-          <div style="font-size:.83rem;color:#64748b;line-height:1.5">Uma única alíquota-padrão para todos os bens e serviços (estimada em 28%). Fim das diferenciações que geravam litígios.</div>
+        <div class="principio-card">
+          <div class="titulo">Alíquota Uniforme</div>
+          <div class="desc">Uma única alíquota-padrão para todos os bens e serviços (estimada em 28%). Fim das diferenciações que geravam litígios.</div>
         </div>
-        <div style="border-left:3px solid var(--emerald);padding:12px 16px">
-          <div style="font-weight:800;color:var(--navy);margin-bottom:4px">Transparência</div>
-          <div style="font-size:.83rem;color:#64748b;line-height:1.5">O imposto deve aparecer explicitamente no preço cobrado ao consumidor — destaque obrigatório na nota fiscal.</div>
+        <div class="principio-card">
+          <div class="titulo">Transparência</div>
+          <div class="desc">O imposto deve aparecer explicitamente no preço cobrado ao consumidor — destaque obrigatório na nota fiscal.</div>
         </div>
       </div>
     </div>
@@ -541,17 +632,12 @@
       <h2>Texto Completo da Lei</h2>
     </div>
     <div class="section-body" style="text-align:center;padding:28px 24px">
-      <p style="font-size:.9rem;color:#475569;margin-bottom:20px;line-height:1.6">
+      <p class="lei-desc">
         Acesse o texto integral da <strong>Lei Complementar n.º 214/2025</strong> publicado
         no Diário Oficial da União pelo portal do Governo Federal.
       </p>
       <a href="https://www.in.gov.br/en/web/dou/-/lei-complementar-n-214-de-16-de-janeiro-de-2025-607430757"
-         target="_blank" rel="noopener"
-         style="display:inline-flex;align-items:center;gap:10px;background:#0F172A;color:white;
-                padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:700;
-                font-size:.95rem;transition:background .15s"
-         onmouseover="this.style.background='#1e293b'"
-         onmouseout="this.style.background='#0F172A'">
+         target="_blank" rel="noopener" class="btn-lei">
         📄 Ler Lei Complementar 214/2025 — DOU
       </a>
       <p style="font-size:.75rem;color:#94a3b8;margin-top:14px">

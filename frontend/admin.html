@@ -144,7 +144,35 @@
     }
     .conta-body { padding: 24px; }
     .conta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    @media (max-width: 600px) { .conta-grid { grid-template-columns: 1fr; } }
+    /* ── Scroll na tabela de usuários ───────────────────────── */
+    .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .table-scroll table { min-width: 620px; }
+
+    /* ── Tablet (≤ 768px) ────────────────────────────────────── */
+    @media (max-width: 768px) {
+      main { padding: 20px 16px; }
+      th, td { padding: 10px 12px; font-size: .84rem; }
+    }
+
+    /* ── Mobile (≤ 600px) ───────────────────────────────────── */
+    @media (max-width: 600px) {
+      /* Header: oculta rótulo admin, compacta botões */
+      .header-inner { padding: 0 16px; }
+      .brand-name   { font-size: 1.1rem; }
+      .header-nav   { gap: 6px; }
+      .nav-link     { padding: 5px 9px; font-size: .78rem; }
+      #btn-sair     { padding: 5px 10px; font-size: .78rem; }
+      #theme-toggle { padding: 5px 9px !important; font-size: .78rem !important; }
+
+      /* Formulário da conta em coluna */
+      .conta-grid { grid-template-columns: 1fr; }
+
+      /* Tipografia */
+      .page-title { font-size: 1.15rem; }
+      th { font-size: .75rem; }
+      td { font-size: .82rem; }
+      .btn-acao { padding: 4px 9px; font-size: .75rem; }
+    }
     .conta-field label {
       display: block; font-size: .82rem; font-weight: 600;
       color: #475569; margin-bottom: 5px;
@@ -223,21 +251,23 @@
   <h1 class="page-title">Gerenciar Usuários</h1>
 
   <div class="card">
-    <table>
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Status</th>
-          <th>Cadastro</th>
-          <th>Último acesso</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody id="tbody">
-        <tr><td colspan="6" class="empty">Carregando…</td></tr>
-      </tbody>
-    </table>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Cadastro</th>
+            <th>Último acesso</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <tr><td colspan="6" class="empty">Carregando…</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </main>
 

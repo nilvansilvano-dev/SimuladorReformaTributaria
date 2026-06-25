@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "nome": "Admin",
+    "email": "nilvandevel@gmail.com",
+    "senhaHash": "yadQVdp7T3aGehZUcBCrxg==:ja4i908MO1PpiP6cFzWiUwVKuY/TaH/WpGUBWuG8V0M=",
+    "isAdmin": true,
+    "ativo": true,
+    "criadoEm": "2026-06-25T18:30:44.4560233Z",
+    "ultimoAcesso": "2026-06-25T18:31:44.5271891Z"
+  }
+]

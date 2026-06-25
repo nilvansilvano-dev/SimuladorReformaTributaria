@@ -721,18 +721,50 @@ footer {
 }
 [data-theme="dark"] .btn-pdf:hover { background: #10B981; color: #0f172a; }
 
-/* ── Responsivo ────────────────────────────────────────────────── */
-@media (max-width: 640px) {
-  .header-inner    { gap: 16px; }
-  .header-title    { border-left: none; padding-left: 0; }
+/* ── Responsivo — Tablet (≤ 900px) ────────────────────────────── */
+@media (max-width: 900px) {
+  main { padding: 0 12px 48px; }
   .header-title h1 { font-size: 1rem; }
-  .brand-logo-icon { width: 38px; }
+  .header-title p  { display: none; }
+  .header-btn      { padding: 5px 10px; font-size: .78rem; }
+  .field           { flex: 1 1 140px; }
+  .comp-table th, .comp-table td { padding: 8px 10px; font-size: .84rem; }
+}
+
+/* ── Responsivo — Mobile (≤ 640px) ────────────────────────────── */
+@media (max-width: 640px) {
+  /* Header: mantém marca à esquerda, botões à direita, oculta título */
+  .header-inner    { flex-wrap: nowrap; justify-content: space-between; gap: 8px; padding: 14px 16px; }
+  .header-title    { display: none; }
+  .brand-sub       { display: none; }
+  .brand-name      { font-size: 1.2rem; }
+  .brand-logo-icon { width: 36px; }
+  .header-username { display: none; }
+  .header-actions  { gap: 5px; flex-shrink: 0; }
+  .header-btn      { padding: 5px 9px; font-size: .72rem; }
+
+  /* Formulário: campos em coluna */
   .field           { flex: 1 1 100%; }
-  .tab-btn         { font-size: .7rem; padding: 10px 4px; }
-  .dre-table th, .dre-table td { padding: 7px 8px; font-size: .8rem; }
-  .comp-table th, .comp-table td { padding: 8px;  font-size: .8rem; }
+  .fields          { padding: 12px 14px 14px; }
+
+  /* Tabs: scroll horizontal quando não cabem */
+  .tabs            { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tab-btn         { flex: 0 0 auto; font-size: .72rem; padding: 10px 10px; white-space: nowrap; }
+
+  /* Tabela DRE: scroll horizontal */
+  .dre-panel       { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .dre-table       { min-width: 480px; }
+  .dre-table th, .dre-table td { padding: 7px 10px; font-size: .8rem; white-space: nowrap; }
+
+  /* Tabela Comparativo: scroll horizontal */
+  #comparativo     { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .comp-table      { min-width: 420px; }
+  .comp-table th, .comp-table td { padding: 8px 10px; font-size: .8rem; white-space: nowrap; }
+
+  /* Cabeçalho de resultados */
   .results-head    { flex-direction: column; gap: 10px; }
   .btn-pdf         { align-self: flex-start; }
+  .results-title   { font-size: 1.05rem; }
 }
 
 /* ── Impressão / Export PDF ────────────────────────────────────── */
