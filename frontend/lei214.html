@@ -220,6 +220,61 @@
     }
     .alert strong { color: #92400e; }
 
+    /* ── Dark mode ───────────────────────────────────────── */
+    [data-theme="dark"] body         { background: #0f172a; color: #e2e8f0; }
+    [data-theme="dark"] main         { background: #0f172a; }
+
+    [data-theme="dark"] .section     { background: #1e293b; border-color: #334155; }
+    [data-theme="dark"] .section-body { color: #cbd5e1; }
+    [data-theme="dark"] .section-header { background: #0f172a; border-color: #334155; }
+    [data-theme="dark"] .section-header h2 { color: #f1f5f9; }
+
+    /* Cards CBS / IBS / IS */
+    [data-theme="dark"] .imposto-card            { background: #0f172a; border-color: #334155; }
+    [data-theme="dark"] .imposto-card .sigla      { color: #f1f5f9; }
+    [data-theme="dark"] .imposto-card .sigla.emerald { color: #10B981; }
+    [data-theme="dark"] .imposto-card .nome       { color: #94a3b8; }
+    [data-theme="dark"] .imposto-card p           { color: #94a3b8; }
+    [data-theme="dark"] .seta                     { color: #10B981; }
+
+    /* Tabela substituição */
+    [data-theme="dark"] table        { border-color: #334155; }
+    [data-theme="dark"] th           { background: #0f172a; color: #94a3b8; border-color: #334155; }
+    [data-theme="dark"] td           { border-color: #334155; color: #cbd5e1; }
+    [data-theme="dark"] tr:hover td  { background: #334155; }
+    [data-theme="dark"] .sub-table tr:nth-child(even) td { background: #0f172a; }
+    [data-theme="dark"] .tag-red     { background: #450a0a; color: #fca5a5; }
+    [data-theme="dark"] .tag-green   { background: #022c22; color: #6ee7b7; }
+    [data-theme="dark"] .tag-blue    { background: #0c1a40; color: #93c5fd; }
+
+    /* Cronograma */
+    [data-theme="dark"] .tl-dot      { border-color: #1e293b; }
+    [data-theme="dark"] .tl-title    { color: #f1f5f9; }
+    [data-theme="dark"] .tl-desc     { color: #94a3b8; }
+
+    /* Split payment */
+    [data-theme="dark"] .split-box   { background: #0f172a; border-color: #334155; }
+    [data-theme="dark"] .split-box .label { color: #e2e8f0; }
+    [data-theme="dark"] .split-box .sub   { color: #64748b; }
+    [data-theme="dark"] .split-dest.empresa { background: #0c1a40; border-color: #3b82f6; }
+    [data-theme="dark"] .split-dest.empresa .pct { color: #93c5fd; }
+    [data-theme="dark"] .split-dest.empresa .who  { color: #94a3b8; }
+    [data-theme="dark"] .split-dest.governo { background: #022c22; border-color: #10B981; }
+    [data-theme="dark"] .split-dest.governo .pct  { color: #6ee7b7; }
+    [data-theme="dark"] .split-dest.governo .who  { color: #94a3b8; }
+
+    /* Isenções */
+    [data-theme="dark"] .isencao-item { background: #022c22; border-color: #065f46; color: #6ee7b7; }
+
+    /* Alerta */
+    [data-theme="dark"] .alert { background: #1c0f00; border-color: #92400e; color: #fcd34d; }
+    [data-theme="dark"] .alert strong { color: #fbbf24; }
+
+    [data-theme="dark"] .timeline-item { background: #1e293b; border-color: #334155; }
+    [data-theme="dark"] .timeline-ano { color: #10B981; }
+    [data-theme="dark"] .timeline-desc { color: #94a3b8; }
+    [data-theme="dark"] .flow-box    { background: #1e293b; border-color: #334155; color: #e2e8f0; }
+
     /* ── Responsivo ──────────────────────────────────────── */
     @media (max-width: 600px) {
       .hero h1 { font-size: 1.3rem; }
@@ -235,8 +290,9 @@
   <div class="header-inner">
     <span class="brand-name">Baruch<em>Gest</em></span>
     <nav class="nav">
-      <a href="index.html">⚡ Simulador</a>
+      <a href="index.html">Simulador</a>
       <a href="admin.html" id="link-admin" style="display:none">Admin</a>
+      <button id="theme-toggle" onclick="toggleTheme()" title="Alternar tema" style="background:none;border:1.5px solid rgba(255,255,255,.3);border-radius:8px;color:rgba(255,255,255,.8);padding:6px 12px;cursor:pointer;font-size:.85rem;transition:background .15s">🌙</button>
     </nav>
   </div>
 </header>
@@ -517,6 +573,7 @@
   &nbsp;·&nbsp; Simulador de Impacto da Reforma Tributária IBS/CBS
 </footer>
 
+<script src="theme.js"></script>
 <script src="chat.js"></script>
 <script>
   // Verificar se está logado

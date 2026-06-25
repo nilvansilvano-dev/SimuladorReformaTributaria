@@ -191,6 +191,28 @@ details[open] > summary { color: var(--navy); border-left: 3px solid var(--emera
 
 .sec-icon { font-size: 1rem; }
 
+/* ── Tags coloridas dos regimes ──────────────────────────────── */
+.sec-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 22px;
+  padding: 0 7px;
+  border-radius: 5px;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+  color: white;
+  flex-shrink: 0;
+}
+.sec-tag.emp { background: #475569; }
+.sec-tag.ref { background: #dc2626; }
+.sec-tag.lr  { background: #2563eb; }
+.sec-tag.lp  { background: #7c3aed; }
+.sec-tag.snc { background: #059669; }
+.sec-tag.sns { background: #d97706; }
+
 .fields { padding: 16px 18px 18px; }
 
 /* ── Field Rows ────────────────────────────────────────────────── */
@@ -637,6 +659,67 @@ footer {
 
 .ph-meta span:not(:empty)::before { content: '·  '; color: var(--emerald); }
 .ph-meta span:first-child::before { content: ''; }
+
+/* ── Dark Mode ─────────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --gray-50:  #1e293b;
+  --gray-100: #0f172a;
+  --gray-200: #334155;
+  --gray-400: #64748b;
+  --gray-600: #94a3b8;
+  --gray-800: #f1f5f9;
+  --white:    #1e293b;
+}
+
+[data-theme="dark"] body         { background: #0f172a; color: #f1f5f9; }
+[data-theme="dark"] details      { background: #1e293b; border-color: #334155; }
+[data-theme="dark"] summary      { color: #e2e8f0; }
+[data-theme="dark"] details[open] > summary { color: #f1f5f9; }
+[data-theme="dark"] label        { color: #94a3b8; }
+[data-theme="dark"] label small  { color: #64748b; }
+
+[data-theme="dark"] input[type="number"],
+[data-theme="dark"] input[type="text"] {
+  background: #0f172a; border-color: #334155; color: #f1f5f9;
+}
+[data-theme="dark"] input[type="number"]:focus,
+[data-theme="dark"] input[type="text"]:focus { background: #1e293b; }
+
+[data-theme="dark"] .input-pct  { background: #0f172a; border-color: #334155; }
+[data-theme="dark"] .input-pct:focus-within { background: #1e293b; }
+[data-theme="dark"] .input-pct span { color: #64748b; }
+
+[data-theme="dark"] .display-value { background: #064e3b; border-color: #10B981; color: #6ee7b7; }
+
+[data-theme="dark"] .dre-section,
+[data-theme="dark"] .comparativo-section { background: #1e293b; border-color: #334155; }
+
+[data-theme="dark"] .tabs        { background: #0f172a; border-color: #334155; }
+[data-theme="dark"] .tab-btn     { color: #94a3b8; }
+[data-theme="dark"] .tab-btn.active { background: #1e293b; color: #f1f5f9; }
+
+[data-theme="dark"] .dre-table td              { border-color: #334155; color: #e2e8f0; }
+[data-theme="dark"] .dre-table td:first-child  { color: #94a3b8; }
+[data-theme="dark"] .dre-table tr:hover td     { background: #334155; }
+[data-theme="dark"] .dre-table tr.bold td      { background: #0f172a; color: #f1f5f9; }
+
+[data-theme="dark"] .comp-table td             { border-color: #334155; color: #e2e8f0; }
+[data-theme="dark"] .comp-table td:first-child { color: #f1f5f9; }
+[data-theme="dark"] .comp-table tr:hover td    { background: #334155; }
+
+[data-theme="dark"] .results-title   { color: #f1f5f9; }
+[data-theme="dark"] .empresa-nome    { color: #94a3b8; }
+[data-theme="dark"] .comparativo-section h3 { color: #f1f5f9; }
+[data-theme="dark"] .obs             { color: #64748b; }
+
+[data-theme="dark"] footer {
+  background: #1e293b; border-color: #334155; color: #64748b;
+}
+
+[data-theme="dark"] .btn-pdf {
+  background: #1e293b; border-color: #10B981; color: #10B981;
+}
+[data-theme="dark"] .btn-pdf:hover { background: #10B981; color: #0f172a; }
 
 /* ── Responsivo ────────────────────────────────────────────────── */
 @media (max-width: 640px) {

@@ -1,4 +1,4 @@
-com oe<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -9,11 +9,33 @@ com oe<!DOCTYPE html>
       --navy:    #0F172A;
       --emerald: #10B981;
       --dk:      #059669;
-      --white:   #FFFFFF;
-      --gray:    #f1f5f9;
-      --border:  #e2e8f0;
       --radius:  8px;
+      /* Light mode */
+      --bg:         #f1f5f9;
+      --card-bg:    #ffffff;
+      --text:       #0F172A;
+      --text-muted: #475569;
+      --border:     #e2e8f0;
+      --brand-text: #ffffff;
+      --brand-sub:  rgba(255,255,255,.55);
+      --footer-col: rgba(255,255,255,.35);
+      --input-bg:   #ffffff;
+      --input-col:  #0F172A;
+      --tab-col:    #64748b;
     }
+
+    /* Dark mode */
+    [data-theme="dark"] {
+      --bg:         #0F172A;
+      --card-bg:    #1e293b;
+      --text:       #f1f5f9;
+      --text-muted: #94a3b8;
+      --border:     #334155;
+      --input-bg:   #0f172a;
+      --input-col:  #f1f5f9;
+      --tab-col:    #94a3b8;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Segoe UI', system-ui, sans-serif;
@@ -24,7 +46,25 @@ com oe<!DOCTYPE html>
       align-items: center;
       justify-content: center;
       padding: 24px;
+      transition: background .2s;
     }
+    [data-theme="dark"] body { background: #020617; }
+
+    /* ── Toggle no canto ────────────────────────────── */
+    #theme-toggle {
+      position: fixed;
+      top: 16px; right: 16px;
+      background: rgba(255,255,255,.1);
+      border: 1.5px solid rgba(255,255,255,.25);
+      border-radius: 8px;
+      color: rgba(255,255,255,.8);
+      padding: 7px 13px;
+      font-size: .9rem;
+      cursor: pointer;
+      transition: background .15s;
+      z-index: 10;
+    }
+    #theme-toggle:hover { background: rgba(255,255,255,.2); }
 
     /* ── Brand ─────────────────────────────────────── */
     .brand {
@@ -34,7 +74,7 @@ com oe<!DOCTYPE html>
     .brand-name {
       font-size: 2rem;
       font-weight: 800;
-      color: var(--white);
+      color: #ffffff;
       letter-spacing: -1px;
     }
     .brand-name em { color: var(--emerald); font-style: normal; }
@@ -48,13 +88,15 @@ com oe<!DOCTYPE html>
 
     /* ── Card ──────────────────────────────────────── */
     .card {
-      background: var(--white);
+      background: var(--card-bg);
       border-radius: 14px;
       width: 100%;
       max-width: 420px;
       overflow: hidden;
       box-shadow: 0 20px 60px rgba(0,0,0,.4);
+      transition: background .2s, border-color .2s;
     }
+    [data-theme="dark"] .card { border: 1px solid #334155; }
 
     /* ── Abas ──────────────────────────────────────── */
     .tabs {
@@ -67,14 +109,14 @@ com oe<!DOCTYPE html>
       text-align: center;
       font-weight: 700;
       font-size: .9rem;
-      color: #64748b;
+      color: var(--tab-col);
       cursor: pointer;
       background: none;
       border: none;
       transition: all .18s;
     }
     .tab.active {
-      color: var(--navy);
+      color: var(--text);
       box-shadow: inset 0 -2px 0 var(--emerald);
     }
 
@@ -84,7 +126,7 @@ com oe<!DOCTYPE html>
 
     .panel h2 {
       font-size: 1.1rem;
-      color: var(--navy);
+      color: var(--text);
       margin-bottom: 20px;
     }
 
@@ -92,7 +134,7 @@ com oe<!DOCTYPE html>
       display: block;
       font-size: .82rem;
       font-weight: 600;
-      color: #475569;
+      color: var(--text-muted);
       margin-bottom: 5px;
     }
     input {
@@ -101,7 +143,8 @@ com oe<!DOCTYPE html>
       border: 1.5px solid var(--border);
       border-radius: var(--radius);
       font-size: .95rem;
-      color: var(--navy);
+      color: var(--input-col);
+      background: var(--input-bg);
       transition: border-color .15s, box-shadow .15s;
       margin-bottom: 16px;
     }
@@ -115,7 +158,7 @@ com oe<!DOCTYPE html>
       width: 100%;
       padding: 12px;
       background: var(--navy);
-      color: var(--white);
+      color: #ffffff;
       border: none;
       border-radius: var(--radius);
       font-size: 1rem;
@@ -124,6 +167,8 @@ com oe<!DOCTYPE html>
       transition: background .18s;
       margin-top: 4px;
     }
+    [data-theme="dark"] .btn { background: #10B981; color: #0f172a; }
+    [data-theme="dark"] .btn:hover { background: #059669; }
     .btn:hover { background: #1e293b; }
     .btn:disabled { opacity: .6; cursor: not-allowed; }
 
@@ -137,6 +182,8 @@ com oe<!DOCTYPE html>
     }
     .msg.erro  { background: #fee2e2; color: #dc2626; display: block; }
     .msg.ok    { background: #d1fae5; color: #065f46; display: block; }
+    [data-theme="dark"] .msg.erro { background: #450a0a; color: #fca5a5; }
+    [data-theme="dark"] .msg.ok   { background: #022c22; color: #6ee7b7; }
 
     /* ── Footer ────────────────────────────────────── */
     .footer {
@@ -148,6 +195,8 @@ com oe<!DOCTYPE html>
   </style>
 </head>
 <body>
+
+<button id="theme-toggle" onclick="toggleTheme()" title="Alternar tema">🌙</button>
 
 <div class="brand">
   <span class="brand-name">Baruch<em>Gest</em></span>
@@ -187,6 +236,7 @@ com oe<!DOCTYPE html>
 
 <p class="footer">Simulador de Impacto da Reforma Tributária IBS/CBS</p>
 
+<script src="theme.js"></script>
 <script>
   const API = 'http://localhost:5000';
 

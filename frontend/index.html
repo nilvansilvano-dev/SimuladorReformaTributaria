@@ -22,8 +22,9 @@
     </div>
     <div class="header-actions">
       <span id="header-user-name" class="header-username"></span>
-      <a href="lei214.html" class="header-btn">📋 Lei 214</a>
+      <a href="lei214.html" class="header-btn">Lei 214</a>
       <a href="admin.html" id="header-admin-link" class="header-btn" hidden>Admin</a>
+      <button id="theme-toggle" class="header-btn" onclick="toggleTheme()" title="Alternar tema">🌙</button>
       <button class="header-btn header-btn-sair" onclick="sair()">Sair</button>
     </div>
   </div>
@@ -53,7 +54,7 @@
     <!-- ── DADOS DA EMPRESA ─────────────────────────────────── -->
     <details open>
       <summary>
-        <span class="sec-icon">🏢</span> Dados da Empresa
+        <span class="sec-tag emp">EMP</span> Dados da Empresa
       </summary>
       <div class="fields">
         <div class="field-row">
@@ -112,7 +113,7 @@
     <!-- ── PARÂMETROS DA REFORMA ────────────────────────────── -->
     <details open>
       <summary>
-        <span class="sec-icon">⚖️</span> Parâmetros da Reforma
+        <span class="sec-tag ref">REF</span> Parâmetros da Reforma
       </summary>
       <div class="fields">
         <div class="field-row">
@@ -143,7 +144,7 @@
 
     <!-- ── LUCRO REAL ────────────────────────────────────────── -->
     <details open>
-      <summary><span class="sec-icon">📊</span> Lucro Real</summary>
+      <summary><span class="sec-tag lr">LR</span> Lucro Real</summary>
       <div class="fields">
         <div class="field-row">
           <div class="field">
@@ -166,7 +167,7 @@
 
     <!-- ── LUCRO PRESUMIDO ───────────────────────────────────── -->
     <details>
-      <summary><span class="sec-icon">📊</span> Lucro Presumido</summary>
+      <summary><span class="sec-tag lp">LP</span> Lucro Presumido</summary>
       <div class="fields">
         <div class="field-row">
           <div class="field">
@@ -210,7 +211,7 @@
 
     <!-- ── SIMPLES COM CRÉDITO ───────────────────────────────── -->
     <details>
-      <summary><span class="sec-icon">📊</span> Simples Nacional — COM crédito IBS/CBS</summary>
+      <summary><span class="sec-tag snc">SNC</span> Simples Nacional — COM crédito IBS/CBS</summary>
       <div class="fields">
         <div class="field-row">
           <div class="field">
@@ -247,7 +248,7 @@
 
     <!-- ── SIMPLES SEM CRÉDITO ───────────────────────────────── -->
     <details>
-      <summary><span class="sec-icon">📊</span> Simples Nacional — SEM crédito IBS/CBS</summary>
+      <summary><span class="sec-tag sns">SNS</span> Simples Nacional — SEM crédito IBS/CBS</summary>
       <div class="fields">
         <div class="field-row">
           <div class="field">
@@ -290,7 +291,7 @@
     </details>
 
     <div class="btn-row">
-      <button type="submit" class="btn-calcular">⚡ Calcular Impacto da Reforma</button>
+      <button type="submit" class="btn-calcular">Calcular Impacto da Reforma</button>
     </div>
   </form>
 
@@ -302,7 +303,7 @@
         <h2 class="results-title">Resultados</h2>
         <p id="empresa-nome-display" class="empresa-nome"></p>
       </div>
-      <button id="btn-pdf" class="btn-pdf">⬇ Exportar PDF</button>
+      <button id="btn-pdf" class="btn-pdf">Exportar PDF</button>
     </div>
 
     <!-- Tabs DRE -->
@@ -328,6 +329,7 @@
   <p><strong>Baruch<span style="color:#10B981">Gest</span></strong> &nbsp;·&nbsp; Simulador de Impacto da Reforma Tributária IBS/CBS</p>
 </footer>
 
+<script src="theme.js"></script>
 <script src="app.js"></script>
 <script src="chat.js"></script>
 </body>
